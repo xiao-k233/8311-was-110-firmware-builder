@@ -1,6 +1,7 @@
 #
 # Missing <ms@missing233.com>, 2024.
 #
+# KillerZ <killerz@killerz.tech>, 2024
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh-cn\n"
@@ -237,7 +238,7 @@ msgid "PON Slot"
 msgstr "PON槽位"
 
 msgid "Change the slot number that the UNI port is presented on, needed on some ISPs."
-msgstr "设置UNI槽位。某些ISPs所需"
+msgstr "设置UNI槽位。某些ISP所需"
 
 msgid "IP Host MAC Address"
 msgstr "IP主机MAC地址"
@@ -258,7 +259,7 @@ msgid "Domain name sent in the IP host config data ME [134] (up to 25 characters
 msgstr "设置IP host config data（ME[134]）中的域名（最多25个字符）"
 
 msgid "Fix VLANs"
-msgstr "修复VLANs"
+msgstr "修复VLAN"
 
 msgid "Apply automatic fixes to the VLAN configuration from the OLT."
 msgstr "启用从OLT自动修复VLAN配置"
@@ -267,13 +268,13 @@ msgid "Internet VLAN"
 msgstr "上网VLAN"
 
 msgid "Set the local VLAN ID to use for the Internet or 0 to make the Internet untagged (and also remove VLAN 0) (0 to 4095). Defaults to 0 (untagged)."
-msgstr "设置上网业务VLAN ID。0代表指定上网业务为Untagged，同时移除VLAN 0。默认0-Untagged（范围0-4095）"
+msgstr "设置!本地!上网业务VLAN ID。0代表指定上网业务为Untagged，同时移除VLAN 0。默认0-Untagged（范围0-4095）"
 
 msgid "Services VLAN"
 msgstr "业务VLAN"
 
 msgid "Set the local VLAN ID to use for Services (ie TV/Home Phone) (1 to 4095). This fixes multi-service on Bell."
-msgstr "设置IPTV/语音等业务VLAN ID（范围1-4095）"
+msgstr "设置本地IPTV/语音等业务VLAN ID（范围1-4095）"
 
 msgid "Boot Delay"
 msgstr "启动延迟"
