@@ -5,7 +5,7 @@
 - 初步SNMP支持
 
 ## 自定义固件环境变量
-
+```
 8311_fix_vlans=1
 8311_internet_vlan=0
 8311_services_vlan=36
@@ -32,7 +32,7 @@
 8311_sw_verA=SGC830007C
 8311_sw_verB=SGC830006E
 8311_vendor_id=SMBS
-
+```
 ### ISP相关固件环境变量
 `8311_fix_vlans` - **VLAN修复**  
 设置为`0`可禁用自动应用的VLAN修复。
