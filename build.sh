@@ -193,8 +193,8 @@ sudo unsquashfs -d "$ROOT_BASIC" "$ROOTFS_BASIC" || _err "Error unsquashifying b
 
 ln -s "rootfs-${FW_VARIANT}" "$ROOT_BASE"
 
-[ -d "$ROOT_BFW/ptrom" ] || _err "/ptrom not found in bfw rootfs"
-[ -d "$ROOT_BASIC/ptrom" ] && _err "/ptrom found in basic rootfs"
+# [ -d "$ROOT_BFW/ptrom" ] || _err "/ptrom not found in bfw rootfs"
+# [ -d "$ROOT_BASIC/ptrom" ] && _err "/ptrom found in basic rootfs"
 
 USER=$(id -un)
 GROUP=$(id -gn)

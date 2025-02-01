@@ -4,6 +4,8 @@
 - 修改bypass脚本，适配国内运营商，不会瞎把internet绑定到默认GEM1的tr096上（这个因地区而异，在我的印象里大部分运营商GEM1一般是tr096，GEM2一般是internet，GEM3一般是iptv，如果你们地区有很逆天的配置，比如一个GEM走N个VLAN，请告诉我）
 - 初步SNMP支持
 
+##Build dependency
+sudo apt install libdigest-crc-perl
 ## 自定义固件环境变量
 ```
 8311_fix_vlans=1
