@@ -1,6 +1,6 @@
 #!/bin/bash
 BANNER="$ROOT_DIR/etc/banner"
-sed -E "s#(^\s+OpenWrt\s+.+$)#\1\n\n 8311 Community Firmware MOD [$FW_VARIANT] - $FW_VERSION ($FW_REVISION)\n https://github.com/djGrrr/8311-was-110-firmware-builder#g" -i "$BANNER"
+sed -E "s#(^\s+OpenWrt\s+.+$)#\1\n\n 8311 Community Firmware MOD [$FW_VARIANT] - $FW_VERSION ($FW_REVISION)\n https://github.com/xiao-k233/8311-was-110-firmware-builder#g" -i "$BANNER"
 
 UBIMGVARS="$ROOT_DIR/sbin/uboot_img_vars.sh"
 echo "Patching '$UBIMGVARS'..."
@@ -122,7 +122,7 @@ mkdir -pv "$ROOT_DIR/ptconf"
 
 # Change load order of mod_sfp_i2c module and add hack that sets the default virtual eeprom to the content of the physical one
 rm -fv "$ROOT_DIR/etc/modules.d/20-pon-sfp-i2c"
-ln -s "/sys/bus/platform/devices/18100000.ponmbox/eeprom50" "$ROOT_DIR/lib/firmware/sfp_eeprom0_hack.bin"
+ln -sf "/sys/bus/platform/devices/18100000.ponmbox/eeprom50" "$ROOT_DIR/lib/firmware/sfp_eeprom0_hack.bin"
 
 
 if ls packages/common/busybox_*.ipk &>/dev/null; then
