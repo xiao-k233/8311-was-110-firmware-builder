@@ -157,7 +157,7 @@ BOOTCORE_VARIANT="${BOOTCORE_VARIANT:-$FW_VARIANT}"
 [ "$KERNEL_VARIANT" = "bfw" ] && KERNEL="$KERNEL_BFW" || KERNEL="$KERNEL_BASIC"
 [ "$BOOTCORE_VARIANT" = "bfw" ] && BOOTCORE="$BOOTCORE_BFW" || BOOTCORE="$BOOTCORE_BASIC"
 
-./extract.sh -i "$IMGFILE" -H "$HEADER" -b "$BOOTCORE_BFW" -k "$KERNEL_BFW" -r "$ROOTFS_BFW" || _err "Error extracting image '$IMG_FILE'"
+# ./extract.sh -i "$IMGFILE" -H "$HEADER" -b "$BOOTCORE_BFW" -k "$KERNEL_BFW" -r "$ROOTFS_BFW" || _err "Error extracting image '$IMG_FILE'"
 
 
 echo
