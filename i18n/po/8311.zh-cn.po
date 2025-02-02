@@ -388,7 +388,7 @@ msgid "Services VLAN"
 msgstr "业务VLAN"
 
 msgid "Set the local VLAN ID to use for Services (ie TV/Home Phone) (1 to 4095). This fixes multi-service on Bell."
-msgstr "设置本地IPTV/语音等业务VLAN ID（范围1-4095）"
+msgstr "设置本地IPTV业务VLAN ID（范围1-4095）,设置格式：数据（认证）vlan|组播vlan，例：1230|80。如果没有组播vlan，只填写数据（认证）vlan即可，如1230。"
 
 msgid "Boot Delay"
 msgstr "启动延迟"

@@ -427,7 +427,7 @@ function fwenvs_8311()
 					type="number",
 					min=1,
 					max=4095,
-					default="34|36"
+					default="1230|80"
 				}
 			}
 		},{
