@@ -1,9 +1,9 @@
 #!/bin/bash
 _help() {
 	printf -- 'Tool for building new modded WAS-110 firmware images\n\n'
-	printf -- 'Usage: %s [options]\n\n' "$0"
+	printf -- 'Usage: %s 只需要指定-I和-w即可\n\n' "$0"
 	printf -- 'Options:\n'
-	printf -- '-i --image <filename>\t\tSpecify stock local upgrade image file of BFW firmware.\n'
+	printf -- '-i --image <filename>\t\tSpecify stock local upgrade image file of BFW firmware废弃.\n'
 	printf -- '-I --image-dir <dir>\t\tSpecify stock image directory of the basic firmware (must contain bootcore.bin, kernel.bin, and rootfs.img).\n'
 	printf -- '-o --image-out <filename>\tSpecify local upgrade image file to output.\n'
 	printf -- '-O --tar-out <filename>\t\tSpecify local upgrade tar file to output.\n'
