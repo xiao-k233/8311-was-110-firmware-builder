@@ -165,14 +165,11 @@ echo
 ROOTFS="$OUT_DIR/rootfs.img"
 ROOTFS_RESET="$OUT_DIR/rootfs-reset.img"
 
-[ -f "$HEADER" ] || _err "Header file '$HEADER' does not exist."
 [ -f "$BOOTCORE" ] || _err "Bootcore file '$BOOTCORE' does not exist."
 [ -f "$KERNEL" ] || _err "Kernel file '$KERNEL' does not exist."
-[ -f "$ROOTFS_BFW" ] || _err "RootFS file '$ROOTFS_BFW' does not exist."
 [ -f "$ROOTFS_BASIC" ] || _err "RootFS file '$ROOTFS_BASIC' does not exist."
 
 ROOT_BASE=$(realpath -s "./rootfs")
-ROOT_BFW="${ROOT_BASE}-bfw"
 ROOT_BASIC="${ROOT_BASE}-basic"
 
 ROOT_DIR="${ROOT_BASE}-${FW_VARIANT}"
@@ -190,7 +187,8 @@ ln -s "rootfs-${FW_VARIANT}" "$ROOT_BASE"
 USER=$(id -un)
 GROUP=$(id -gn)
 
-sudo chown -R "$USER:$GROUP" "$ROOT_BASIC" "$ROOT_BFW"
+sudo chown -R "$USER:$GROUP" "$ROOT_BASIC"
+
 
 FW_LONG_VERSION="${FW_VER}_${FW_VARIANT}_${FW_REV}${FW_SUFFIX}"
 
@@ -250,7 +248,7 @@ touch -d "@$GIT_EPOCH" "$OUT_MCUPG" "$OUT_MCRESET"
 
 CREATE=("-b" "$OUT_BOOTCORE" "-k" "$OUT_KERNEL" "-r" "$ROOTFS" -D "@$GIT_EPOCH")
 ./create.sh --basic -i "$TAR_OUT" -F "$VERSION_FILE" "${CREATE[@]}"
-./create.sh --bfw -i "$IMG_OUT" -V "$FW_VER" -L "$FW_LONG_VERSION" -H "$HEADER" "${CREATE[@]}"
+#./create.sh --bfw -i "$IMG_OUT" -V "$FW_VER" -L "$FW_LONG_VERSION" -H "$HEADER" "${CREATE[@]}"
 
 rm -fv "$HEADER" "$KERNEL_BFW" "$BOOTCORE_BFW" "$ROOTFS_BFW" "$OUT_UROOTFS" "$OUT_UROOTFS_RESET" "$ROOTFS_RESET"
 
