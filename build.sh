@@ -1,9 +1,9 @@
 #!/bin/bash
 _help() {
 	printf -- 'Tool for building new modded WAS-110 firmware images\n\n'
-	printf -- 'Usage: %s 只需要指定-I和-w即可\n\n' "$0"
+	printf -- 'Usage: %s [options]\n\n' "$0"
 	printf -- 'Options:\n'
-	printf -- '-i --image <filename>\t\tSpecify stock local upgrade image file of BFW firmware废弃.\n'
+	printf -- '-i --image <filename>\t\tSpecify stock local upgrade image file of BFW firmware.\n'
 	printf -- '-I --image-dir <dir>\t\tSpecify stock image directory of the basic firmware (must contain bootcore.bin, kernel.bin, and rootfs.img).\n'
 	printf -- '-o --image-out <filename>\tSpecify local upgrade image file to output.\n'
 	printf -- '-O --tar-out <filename>\t\tSpecify local upgrade tar file to output.\n'
@@ -132,6 +132,15 @@ FW_REVISION="$FW_REV$FW_SUFFIX"
 
 set -e
 
+if [ -n "$IMGFILE" ]; then
+	IMG_FILE=$(realpath "$IMGFILE")
+	[ -f "$IMG_FILE" ] || _err "Image file '$IMG_FILE' does not exist."
+
+	HEADER="$OUT_DIR/header.bin"
+else
+	_err "Must specify --bfw-image-file"
+fi
+
 if [ -n "$IMGDIR" ] && [ -d "$IMGDIR" ]; then
 	IMG_DIR=$(realpath "$IMGDIR")
 	[ -d "$IMG_DIR" ] || _err "Image directory '$IMG_DIR' does not exist."
@@ -157,7 +166,7 @@ BOOTCORE_VARIANT="${BOOTCORE_VARIANT:-$FW_VARIANT}"
 [ "$KERNEL_VARIANT" = "bfw" ] && KERNEL="$KERNEL_BFW" || KERNEL="$KERNEL_BASIC"
 [ "$BOOTCORE_VARIANT" = "bfw" ] && BOOTCORE="$BOOTCORE_BFW" || BOOTCORE="$BOOTCORE_BASIC"
 
-# ./extract.sh -i "$IMGFILE" -H "$HEADER" -b "$BOOTCORE_BFW" -k "$KERNEL_BFW" -r "$ROOTFS_BFW" || _err "Error extracting image '$IMG_FILE'"
+./extract.sh -i "$IMGFILE" -H "$HEADER" -b "$BOOTCORE_BFW" -k "$KERNEL_BFW" -r "$ROOTFS_BFW" || _err "Error extracting image '$IMG_FILE'"
 
 
 echo
@@ -165,30 +174,32 @@ echo
 ROOTFS="$OUT_DIR/rootfs.img"
 ROOTFS_RESET="$OUT_DIR/rootfs-reset.img"
 
+[ -f "$HEADER" ] || _err "Header file '$HEADER' does not exist."
 [ -f "$BOOTCORE" ] || _err "Bootcore file '$BOOTCORE' does not exist."
 [ -f "$KERNEL" ] || _err "Kernel file '$KERNEL' does not exist."
+[ -f "$ROOTFS_BFW" ] || _err "RootFS file '$ROOTFS_BFW' does not exist."
 [ -f "$ROOTFS_BASIC" ] || _err "RootFS file '$ROOTFS_BASIC' does not exist."
 
 ROOT_BASE=$(realpath -s "./rootfs")
+ROOT_BFW="${ROOT_BASE}-bfw"
 ROOT_BASIC="${ROOT_BASE}-basic"
 
 ROOT_DIR="${ROOT_BASE}-${FW_VARIANT}"
 
 rm -rfv "$ROOT_BASE" "$ROOT_BFW" "$ROOT_BASIC"
 
-#sudo unsquashfs -d "$ROOT_BFW" "$ROOTFS_BFW" || _err "Error unsquashifying bfw RootFS image '$ORIG_ROOTFS'"
+sudo unsquashfs -d "$ROOT_BFW" "$ROOTFS_BFW" || _err "Error unsquashifying bfw RootFS image '$ORIG_ROOTFS'"
 sudo unsquashfs -d "$ROOT_BASIC" "$ROOTFS_BASIC" || _err "Error unsquashifying basic RootFS image '$ORIG_ROOTFS'"
 
 ln -s "rootfs-${FW_VARIANT}" "$ROOT_BASE"
 
-# [ -d "$ROOT_BFW/ptrom" ] || _err "/ptrom not found in bfw rootfs"
-# [ -d "$ROOT_BASIC/ptrom" ] && _err "/ptrom found in basic rootfs"
+[ -d "$ROOT_BFW/ptrom" ] || _err "/ptrom not found in bfw rootfs"
+[ -d "$ROOT_BASIC/ptrom" ] && _err "/ptrom found in basic rootfs"
 
 USER=$(id -un)
 GROUP=$(id -gn)
 
-sudo chown -R "$USER:$GROUP" "$ROOT_BASIC"
-
+sudo chown -R "$USER:$GROUP" "$ROOT_BASIC" "$ROOT_BFW"
 
 FW_LONG_VERSION="${FW_VER}_${FW_VARIANT}_${FW_REV}${FW_SUFFIX}"
 
@@ -248,7 +259,7 @@ touch -d "@$GIT_EPOCH" "$OUT_MCUPG" "$OUT_MCRESET"
 
 CREATE=("-b" "$OUT_BOOTCORE" "-k" "$OUT_KERNEL" "-r" "$ROOTFS" -D "@$GIT_EPOCH")
 ./create.sh --basic -i "$TAR_OUT" -F "$VERSION_FILE" "${CREATE[@]}"
-#./create.sh --bfw -i "$IMG_OUT" -V "$FW_VER" -L "$FW_LONG_VERSION" -H "$HEADER" "${CREATE[@]}"
+./create.sh --bfw -i "$IMG_OUT" -V "$FW_VER" -L "$FW_LONG_VERSION" -H "$HEADER" "${CREATE[@]}"
 
 rm -fv "$HEADER" "$KERNEL_BFW" "$BOOTCORE_BFW" "$ROOTFS_BFW" "$OUT_UROOTFS" "$OUT_UROOTFS_RESET" "$ROOTFS_RESET"
 
