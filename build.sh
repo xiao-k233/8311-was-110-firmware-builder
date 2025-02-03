@@ -1,6 +1,6 @@
 #!/bin/bash
 _help() {
-	printf -- 'Tool for building new modded WAS-110 firmware images\n\n'
+	printf -- 'sudo ./build.sh -i stock/V1.0.19_unofficial_WAS_110_PRX126_local.img -I stock/PTXG_CX_V0.03 --basic --release -V "2.8.0-cn"\n\n'
 	printf -- 'Usage: %s [options]\n\n' "$0"
 	printf -- 'Options:\n'
 	printf -- '-i --image <filename>\t\tSpecify stock local upgrade image file of BFW firmware.\n'
