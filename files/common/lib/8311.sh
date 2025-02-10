@@ -10,7 +10,9 @@ _lib_8311() {
 lib_hexbin 2>/dev/null || . /lib/functions/hexbin.sh
 
 to_console() {
-	tee -a /dev/console | { awk '{print "[8311] " $0}' >&1; } | logger -t "8311" -p daemon.info
+	#来自Deepseek R1的修改：在控制台添加8311前缀
+	tee >(sed 's/^/[8311]/' >> /dev/console) | logger -t "8311" -p daemon.info
+
 }
 
 strtoupper() {
