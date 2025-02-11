@@ -1,7 +1,7 @@
 # 8311 WAS-110 固件构建器
 ## 国内优化版，目前没做太多更改
 ### 主要特性如下：
-- 修改bypass脚本，适配国内运营商，不会瞎把internet绑定到默认GEM1的tr096上（这个因地区而异，在我的印象里大部分运营商GEM1一般是tr096，GEM2一般是internet，GEM3一般是iptv，如果你们地区有很逆天的配置，比如一个GEM走N个VLAN，请告诉我）
+- 修改bypass脚本，适配国内运营商 TODO: use unicast iface eth0_0 instead of pmapper
 - 初步SNMP支持
 
 ##Build dependency
