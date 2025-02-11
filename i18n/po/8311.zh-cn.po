@@ -556,7 +556,7 @@ msgid "Ping IP"
 msgstr "Ping IP"
 
 msgid "IP address to ping. Defaults to the 2nd IP address in the configured management network (ie. 192.168.11.2)."
-msgstr "需要Ping的IP地址。默认为管理子网中的第2个IP地址（比如192.168.11.2）"
+msgstr "需要Ping的IP地址。如果猫棒的ip不是网关，那么ping网关，否则ping管理子网中第二个ip（比如192.168.11.2）"
 
 msgid "LCT MAC Address"
 msgstr "LCT MAC地址"
