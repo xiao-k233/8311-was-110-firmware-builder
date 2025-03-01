@@ -3,7 +3,7 @@
 ### 主要特性如下：
 - 修改bypass脚本，适配国内运营商 
 - 初步SNMP支持
-# TODO: vlan-fix: use unicast iface eth0_0 instead of pmapper暑假再做吧！
+### TODO(已完成）: vlan-fix: use unicast iface eth0_0 instead of pmapper暑假再做吧！
 手动指定wan vlan和lan vlan
 
 
