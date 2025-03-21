@@ -351,6 +351,7 @@ function fwenvs_8311()
 					type="select",
 					default="/etc/mibs/prx300_1U.ini",
 					options={
+						"/etc/mibs/prx300_1V_CN.ini",
 						"/etc/mibs/prx300_1U.ini",
 						"/etc/mibs/prx300_1U_telus.ini",
 						"/etc/mibs/prx300_1V.ini",
