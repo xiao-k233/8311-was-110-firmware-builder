@@ -22,6 +22,10 @@ while true ; do
 			sleep 5
 		fi
 
+<<<<<<< HEAD
+=======
+		ping -i 5 "$PING_HOST" &> /dev/null < /dev/null
+>>>>>>> v2.8.1
 		sleep 5
 	else
 		sleep 30
