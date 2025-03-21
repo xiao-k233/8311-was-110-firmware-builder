@@ -6,5 +6,6 @@ stock/
 whole_image/system_sw.img
 i18n/lmo/*.lmo
 *~
+*.patch
 ./*.img
 ./*.bin

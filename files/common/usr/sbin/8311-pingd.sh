@@ -7,9 +7,10 @@ while true ; do
 	# Ping host to help management work
 	PING_HOST=$(get_8311_ping_host)
 
-	echo "Starting ping to: $PING_HOST" | to_console
+	
 
 	if [ "$PINGD_ENABLED" -ne "0" ] 2>/dev/null; then
+		echo "Starting ping to: $PING_HOST" | to_console
 		ping -i 1 -c 3 "$PING_HOST" &> /dev/null < /dev/null
 		# 获取返回值（0=成功，非0=失败）
 		ping_result=$?
