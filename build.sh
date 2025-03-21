@@ -132,6 +132,15 @@ FW_REVISION="$FW_REV$FW_SUFFIX"
 
 set -e
 
+if [ -n "$IMGFILE" ]; then
+	IMG_FILE=$(realpath "$IMGFILE")
+	[ -f "$IMG_FILE" ] || _err "Image file '$IMG_FILE' does not exist."
+
+	HEADER="$OUT_DIR/header.bin"
+else
+	_err "Must specify --bfw-image-file"
+fi
+
 if [ -n "$IMGDIR" ] && [ -d "$IMGDIR" ]; then
 	IMG_DIR=$(realpath "$IMGDIR")
 	[ -d "$IMG_DIR" ] || _err "Image directory '$IMG_DIR' does not exist."
@@ -179,7 +188,7 @@ ROOT_DIR="${ROOT_BASE}-${FW_VARIANT}"
 
 rm -rfv "$ROOT_BASE" "$ROOT_BFW" "$ROOT_BASIC"
 
-#sudo unsquashfs -d "$ROOT_BFW" "$ROOTFS_BFW" || _err "Error unsquashifying bfw RootFS image '$ORIG_ROOTFS'"
+sudo unsquashfs -d "$ROOT_BFW" "$ROOTFS_BFW" || _err "Error unsquashifying bfw RootFS image '$ORIG_ROOTFS'"
 sudo unsquashfs -d "$ROOT_BASIC" "$ROOTFS_BASIC" || _err "Error unsquashifying basic RootFS image '$ORIG_ROOTFS'"
 
 ln -s "rootfs-${FW_VARIANT}" "$ROOT_BASE"
