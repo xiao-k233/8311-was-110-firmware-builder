@@ -353,7 +353,6 @@ function fwenvs_8311()
 					options={
 						"/etc/mibs/prx300_1V_CN.ini",
 						"/etc/mibs/prx300_1U.ini",
-						"/etc/mibs/prx300_1U_telus.ini",
 						"/etc/mibs/prx300_1V.ini",
 						"/etc/mibs/prx300_1V_bell.ini",
 						"/etc/mibs/prx300_2U.ini",
@@ -428,7 +427,7 @@ function fwenvs_8311()
 					type="number",
 					min=1,
 					max=4095,
-					default="34|36"
+					default="80|1230"
 				}
 			}
 		},{
