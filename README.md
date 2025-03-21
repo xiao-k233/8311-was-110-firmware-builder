@@ -1,16 +1,10 @@
-# 8311 WAS-110 固件构建器
+# 8311 WAS-110 Firmware Builder
 ## 国内优化版，目前没做太多更改
 ### 主要特性如下：
-- 修改bypass脚本，适配国内运营商 
-- 初步SNMP支持
-### TODO(已完成）: vlan-fix: use unicast iface eth0_0 instead of pmapper暑假再做吧！
-手动指定wan vlan和lan vlan
+- 修改bypass脚本，适配国内运营商，不会瞎把internet绑定到默认GEM1的tr096上（这个因地区而异，在我的印象里大部分运营商GEM1一般是tr096，GEM2一般是internet，GEM3一般是iptv，如果你们地区有很逆天的配置，比如一个GEM走N个VLAN，请告诉我）
 
+## Custom fwenvs
 
-##Build dependency
-sudo apt install libdigest-crc-perl
-## 自定义固件环境变量
-```
 8311_fix_vlans=1
 8311_internet_vlan=0
 8311_services_vlan=36
@@ -37,13 +31,6 @@ sudo apt install libdigest-crc-perl
 8311_sw_verA=SGC830007C
 8311_sw_verB=SGC830006E
 8311_vendor_id=SMBS
-```
-### ISP相关固件环境变量
-`8311_fix_vlans` - **VLAN修复**  
-设置为`0`可禁用自动应用的VLAN修复。
-
-`8311_internet_vlan` - **互联网VLAN**  
-设置用于互联网的本地VLAN ID，设为`0`则互联网不使用VLAN标签（同时移除VLAN 0）（取值范围0至4095）。默认值为`0`（无标签）。
 
 `8311_services_vlan` - **服务VLAN**  
 设置用于服务（如电视/网络电话）的本地VLAN ID（取值范围1至4095）。这可以修复Bell的多服务问题。
