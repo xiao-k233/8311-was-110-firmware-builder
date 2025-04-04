@@ -2,8 +2,10 @@
 ## 国内优化版，目前没做太多更改
 ### 主要特性如下：
 - 修改bypass脚本，适配国内运营商，不会瞎把internet绑定到默认GEM1的tr096上（这个因地区而异，在我的印象里大部分运营商GEM1一般是tr096，GEM2一般是internet，GEM3一般是iptv，如果你们地区有很逆天的配置，比如一个GEM走N个VLAN，请告诉我）
+- 初步SNMP支持
 
 ## Custom fwenvs
+
 
 8311_fix_vlans=1
 8311_internet_vlan=0
@@ -32,18 +34,26 @@
 8311_sw_verB=SGC830006E
 8311_vendor_id=SMBS
 
-`8311_services_vlan` - **服务VLAN**  
-设置用于服务（如电视/网络电话）的本地VLAN ID（取值范围1至4095）。这可以修复Bell的多服务问题。
+### ISP Fix fwenvs
+`8311_fix_vlans` - **Fix VLANs**  
+Set to `0` to disable the automatic fixes that are applied to VLANs.  
 
-### 管理相关固件环境变量
-`8311_ipaddr` - **IP地址**  
-设置管理IP地址。默认为`192.168.11.1`
+`8311_internet_vlan` - **Internet VLAN**  
+Set the local VLAN ID to use for the Internet or `0` to make the Internet untagged (and also remove VLAN 0) (0 to 4095). Defaults to `0` (untagged).  
 
-`8311_netmask` - **子网掩码**  
-设置管理子网掩码。默认为`255.255.255.0`
+`8311_services_vlan` - **Services VLAN**  
+Set the local VLAN ID to use for Services (ie TV/Home Phone) (1 to 4095). This fixes multi-service on Bell.  
 
-`8311_gateway` - **网关**  
-设置管理网关。默认为IP地址（即无默认网关）
+
+### Management fwenvs
+`8311_ipaddr` - **IP Address**  
+Set the management IP address. Defaults to `192.168.11.1`  
+
+`8311_netmask` - **Subnet Mask**  
+Set the management subnet mask. Defaults to `255.255.255.0`  
+
+`8311_gateway` - **Gateway**  
+Set the management gateway. Defaults to the IP address (ie. no default gateway)  
 
 `8311_ping_ip` - **Ping测试IP**  
 设置每5秒ping一次的IP地址，这有助于保持设备连接。默认为配置的管理网络中的第二个IP地址（如192.168.11.2）。
