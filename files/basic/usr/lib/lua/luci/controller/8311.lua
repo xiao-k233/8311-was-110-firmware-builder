@@ -397,9 +397,6 @@ function fwenvs_8311()
 					id="iopmask",
 					name=translate("互操作兼容模式"),
 					description=translate("兼容适配模式，启用自动VLAN配置和组播规则修复"),
-					id="iopmask",
-					name=translate("互操作兼容模式"),
-					description=translate("兼容适配模式，启用自动VLAN配置和组播规则修复"),
 					type="select_named",
 					default="1",
 					options={
@@ -410,33 +407,13 @@ function fwenvs_8311()
 						{
 							name=translate("Enabled"),
 							value="1"
+						},
+						{
+							name=translate("Hook script only"),
+							value="2"
 						}
 					}
 				},{
-					id="uvlan",
-					name=translate("默认PVID"),
-					description=translate("将untag的报文添加默认vlan（vlan范围:1-4094），填写\"u\"即可使用untag转untag模式（原光猫上网vlan为空的，可尝试填写）"),
-					type="text",
-					maxlength=4,
-					depends="iopmask"
-				},{
-					id="forceuvlan",
-					name=translate("强制创建默认PVID"),
-					description=translate("pvid设置后不生效，可尝试勾选"),
-					type="checkbox",
-					default=false,
-					depends="iopmask"
-				},{
-					id="forcemerule",
-					name=translate("强制设置ME规则"),
-					description=translate("o5状态无法拨号，可尝试勾选"),
-					type="checkbox",
-					default=false,
-					depends="iopmask"
-				},{
-					id="mvlansource",
-					name=translate("下行组播VLAN"),
-					description=translate("组播数据vlan（填写原光猫中的组播vlan，vlan范围:1-4094）"),
 					id="uvlan",
 					name=translate("默认PVID"),
 					description=translate("将untag的报文添加默认vlan（vlan范围:1-4094），填写\"u\"即可使用untag转untag模式（原光猫上网vlan为空的，可尝试填写）"),
@@ -465,13 +442,7 @@ function fwenvs_8311()
 					min=1,
 					max=4094,
 					depends="iopmask"
-					min=1,
-					max=4094,
-					depends="iopmask"
 				},{
-					id="multicast_vlan",
-					name=translate("下行组播VLAN转换"),
-					description=translate("将组播数据vlan转换为其他vlan（填写原光猫中iptv的vlan，即可将组播数据vlan转换为iptv认证vlan，vlan范围:1-4094）"),
 					id="multicast_vlan",
 					name=translate("下行组播VLAN转换"),
 					description=translate("将组播数据vlan转换为其他vlan（填写原光猫中iptv的vlan，即可将组播数据vlan转换为iptv认证vlan，vlan范围:1-4094）"),
