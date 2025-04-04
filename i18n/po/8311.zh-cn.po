@@ -1,13 +1,13 @@
 #
 # Missing <ms@missing233.com>, 2024.
-# KillerZ <killerz@killerz.tech>, 2024
+# KillerZ <killerz@killerz.tech>, 2025.
 #
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: zh-cn\n"
 
 msgid "Translator"
-msgstr "Missing"
+msgstr "Missing,KillerZ"
 
 msgid "TranslatorURL"
 msgstr "https://github.com/missing233"
@@ -79,7 +79,7 @@ msgid "O9, Upstream tuning state"
 msgstr "O9, 上行调谐状态"
 
 msgid "PON PLOAM Status"
-msgstr "注册状态"
+msgstr "PON注册状态"
 
 msgid "RX Power / TX Power / TX Bias"
 msgstr "接收光功率 / 发射光功率 / 发射偏置电流"
@@ -388,7 +388,7 @@ msgid "Services VLAN"
 msgstr "业务VLAN"
 
 msgid "Set the local VLAN ID to use for Services (ie TV/Home Phone) (1 to 4095). This fixes multi-service on Bell."
-msgstr "设置本地IPTV/语音等业务VLAN ID（范围1-4095）"
+msgstr "设置本地IPTV业务VLAN ID（范围1-4095）,设置格式：数据（认证）vlan|组播vlan，例：1230|80。如果没有组播vlan，只填写数据（认证）vlan即可，如1230。目前仅支持山东联通这种简单的的IPoE验证。"
 
 msgid "Boot Delay"
 msgstr "启动延迟"
@@ -415,7 +415,7 @@ msgid "Early Serial Console"
 msgstr "早期串行控制台"
 
 msgid "Enable the serial console early in the boot process. Disabling this may help in some devices that have issues with TX_FAULT."
-msgstr "在启动过程中提前启用串行控制台。禁用此功能可能有助于解决某些设备中存在的TX_FAULT问题"
+msgstr "在启动过程中启用早期串行控制台。禁用此功能可能对某些存在TX_FAULT问题的设备有帮助。"
 
 msgid "Dying Gasp"
 msgstr "断电告警"
@@ -427,7 +427,7 @@ msgid "RX Loss of Signal"
 msgstr "RX Loss"
 
 msgid "Enable the RX_LOS pin. Disable to allow stick to be accessible without the fiber connected in all devices."
-msgstr "启用RX_LOS引脚。禁用以允许无光时访问ONU Stick"
+msgstr "启用RX_LOS引脚。禁用以允许无光时访问猫棒"
 
 msgid "Root password hash"
 msgstr "Root密码哈希"
@@ -550,13 +550,13 @@ msgid "Ping Daemon"
 msgstr "Ping守护进程"
 
 msgid "Enables a daemon that will ping an IP every 5 seconds, which can help with accessing the stick."
-msgstr "启用一个守护进程，每5秒对一个IP地址进行一次Ping操作，这可以帮助访问ONU Stick"
+msgstr "启用一个守护进程，每5秒对一个IP地址进行一次Ping操作，这可以帮助访问猫棒"
 
 msgid "Ping IP"
 msgstr "Ping IP"
 
 msgid "IP address to ping. Defaults to the 2nd IP address in the configured management network (ie. 192.168.11.2)."
-msgstr "需要Ping的IP地址。默认为管理子网中的第2个IP地址（192.168.11.2）"
+msgstr "需要Ping的IP地址。默认为管理子网中的第2个IP地址（比如192.168.11.2）"
 
 msgid "LCT MAC Address"
 msgstr "LCT MAC地址"
@@ -583,25 +583,25 @@ msgid "Support"
 msgstr "支持"
 
 msgid "Support Archive"
-msgstr "支持存档"
+msgstr "故障诊断包"
 
 msgid "A support archive contains diagnostic information used to help identify any underlying issues when attempting to bypass."
-msgstr "支持存档包含诊断信息，用于帮助识别尝试使用8311固件的Stick时任何可能存在的问题。"
+msgstr "故障诊断包包含用于帮助识别使用8311固件时可能存在的底层问题的诊断信息。"
 
 msgid "Connect the fiber for at least 30 seconds before generating a support archive."
-msgstr "在生成支持存档之前，连接光纤至少30秒。"
+msgstr "在生成故障诊断包之前，请确保光纤已连接至少30秒。"
 
 msgid "WARNING: A support archive contains potentially sensitive information. Do not share it publically."
-msgstr "警告：支持存档包含潜在的敏感信息，请勿公开分享。"
+msgstr "警告：故障诊断包包含潜在的敏感信息，请勿公开分享。"
 
 msgid "Generate Support Archive"
-msgstr "生成支持存档"
+msgstr "生成故障诊断包"
 
 msgid "Download Support Archive"
-msgstr "下载支持存档"
+msgstr "下载故障诊断包"
 
 msgid "Delete Support Archive"
-msgstr "删除支持存档"
+msgstr "删除故障诊断包"
 
 msgid "Active Firmware"
 msgstr "活动固件分区"
