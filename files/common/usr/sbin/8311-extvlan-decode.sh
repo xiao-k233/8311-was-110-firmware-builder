@@ -182,6 +182,22 @@ treatment_tpid_dei() {
 		echo -e "$2\t(保留)"
 	fi
 }
+me84_parse() {
+    local input="$1"                   # 封装输入参数[^2]
+    set -- $input                       # 将参数转为位置变量
+    while [ $# -ge 2 ]; do              # 持续处理直到参数不足2个
+        byte1=$(printf "%d" $1)         # 转换高字节HEX→DEC
+        byte2=$(printf "%d" $2)         # 转换低字节HEX→DEC
+        total=$(( (byte1 << 8) | byte2 )) # 合并为16位整型
+        if [ $total -ne 0 ]; then       # 过滤空条目[^3]
+            priority=$(( (total & 0xE000) >> 13 ))
+            cfi=$(( (total & 0x1000) >> 12 ))
+            vid=$(( total & 0x0FFF ))    # 计算各字段
+            echo -n "  VLAN Entry: Priority=$priority, CFI=$cfi, VID=$vid, "
+        fi
+        shift 2                         # 移除已处理的字节对
+    done
+}
 
 vlan_parse() {
 		filter_outer_priority=$((($1 & 0xf0000000) >> 28))
@@ -249,10 +265,22 @@ vlan_parse() {
 }
 
 ext_vlan_tables=$(mibs 171)
+me84_tables=$(mibs 84)
+if [ -z "$ext_vlan_tables" ]; then
+	echo "未检测到ME84 VLAN tagging filter data"
+fi
 if [ -z "$ext_vlan_tables" ]; then
 	echo "未检测到EXTVLAN表" >&2
 	exit 1
 fi
+
+for me84_table in $me84_tables; do
+	printf "ME84 Instance id %d:" $me84_table
+	me84=$(mibattr 84 $me84_table 1 | sed -n '2p')
+	me84_parse "$me84"
+	fwdop=$(mibattr 84 $me84_table 2 | awk '/^[[:space:]]+0x[0-9a-fA-F]+/ {print $1}')
+	printf "FwdOp:%s \n" $fwdop
+done
 
 i=0
 for ext_vlan_table in $ext_vlan_tables; do
@@ -274,3 +302,4 @@ for ext_vlan_table in $ext_vlan_tables; do
 	done
 	i=$((i + 1))
 done
+
