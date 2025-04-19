@@ -273,15 +273,18 @@ if [ -z "$ext_vlan_tables" ]; then
 	echo "未检测到EXTVLAN表" >&2
 	exit 1
 fi
-
-for me84_table in $me84_tables; do
-	printf "ME84 Instance id %d:" $me84_table
-	me84=$(mibattr 84 $me84_table 1 | sed -n '2p')
-	me84_parse "$me84"
-	fwdop=$(mibattr 84 $me84_table 2 | awk '/^[[:space:]]+0x[0-9a-fA-F]+/ {print $1}')
-	printf "FwdOp:%s \n" $fwdop
-done
-
+if $TABLE; then
+	echo "ME84 VLAN tagging filter data数据："
+	echo "------------------------"
+	for me84_table in $me84_tables; do
+		printf "ME84 Instance id %d:" $me84_table
+		me84=$(mibattr 84 $me84_table 1 | sed -n '2p')
+		me84_parse "$me84"
+		fwdop=$(mibattr 84 $me84_table 2 | awk '/^[[:space:]]+0x[0-9a-fA-F]+/ {print $1}')
+		printf "FwdOp:%s \n" $fwdop
+	done
+	echo -e "\n"
+fi
 i=0
 for ext_vlan_table in $ext_vlan_tables; do
 	if $HEADER; then
