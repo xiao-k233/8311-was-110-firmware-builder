@@ -1,6 +1,4 @@
 #!/bin/bash
-
-# 公共包列表（对basic版本有效）
 COMMON_PACKAGES=(
 	"busybox"
 	"dropbear"
@@ -19,7 +17,6 @@ COMMON_PACKAGES=(
 	"zstd"
 )
 
-# basic版本特有包列表
 BASIC_PACKAGES=(
 	"liblucihttp"
 	"liblucihttp0"
@@ -42,7 +39,9 @@ BASIC_PACKAGES=(
 	"uhttpd"
 )
 
-# 需要移除的包列表
+BFW_PACKAGES=(
+)
+
 REMOVE_PACKAGES=(
 	"luci-app-advanced-reboot"
 	"luci-app-commands"
@@ -52,31 +51,31 @@ REMOVE_PACKAGES=(
 	"luci-theme-openwrt"
 )
 
-# 查找所有ipk包
+
 IPKS=$(find openwrt/bin/ | grep '\.ipk$' | sort -V)
 
-# 根据正则表达式查找匹配的ipk包
 find_ipks() {
 	pcregrep "/($1)_[A-Za-z0-9._+-]+\.ipk" <<< "$IPKS"
 }
 
-# 创建目录结构并清理旧文件
-mkdir -p packages/common packages/basic packages/remove
-rm -fv packages/common/*.ipk packages/basic/*.ipk packages/remove/*.list
+mkdir -p packages/common packages/basic packages/bfw packages/remove
+rm -fv packages/common/*.ipk packages/basic/*.ipk packages/bfw/*.ipk packages/remove/*.list
 
-# 复制公共包
 for PACKAGE in "${COMMON_PACKAGES[@]}"; do
 	IPK=$(find_ipks "$PACKAGE")
 	[ -n "$IPK" ] && cp -fv $IPK packages/common/
 done
 
-# 复制basic版本包
 for PACKAGE in "${BASIC_PACKAGES[@]}"; do
 	IPK=$(find_ipks "$PACKAGE")
 	[ -n "$IPK" ] && cp -fv $IPK packages/basic/
 done
 
-# 生成需要移除的包的文件列表
+for PACKAGE in "${BFW_PACKAGES[@]}"; do
+	IPK=$(find_ipks "$PACKAGE")
+	[ -n "$IPK" ] && cp -fv $IPK packages/bfw/
+done
+
 for PACKAGE in "${REMOVE_PACKAGES[@]}"; do
 	for IPK in $(find_ipks "$PACKAGE"); do
 		LIST="packages/remove/$(basename "$IPK" ".ipk").list"
