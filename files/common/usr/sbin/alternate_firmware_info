@@ -41,16 +41,8 @@ BANNER="$MNTDIR/etc/banner"
 if [ -f "$VER_8311" ]; then
 	cat "$VER_8311" > "/tmp/8311-alt-firmware"
 else
-	if [ -f "$STATEOV" ]; then
-		BFW_VER=$(grep -A1 8311modver "$STATEOV" | grep -E '<td>\S+ \(\S+)</td>' | sed -r 's#\s*</?td>##g' | tr '()' '  ')
-		if [ -n "$BFW_VER" ]; then
-			FW_VARIANT="bfw"
-			FW_VERSION=$(echo "$BFW_VER" | awk '{print $1}')
-			FW_REVISION=$(echo "$BFW_VER" | awk '{print $2}')
-		fi
-	fi
-
-	if [ "$FW_VARIANT" = "unknown" ] && [ -f "$BANNER" ]; then
+	# 尝试从banner获取
+	if [ -f "$BANNER" ]; then
 		VER=$(grep -E -o '8311 Community Firmware MOD \[\S+\] - \S+ \(\S+)' "$BANNER" | tr '[]()' '    ')
 		if [ -n "$VER" ]; then
 			FW_VARIANT=$(echo "$VER" | awk '{print $5}')
