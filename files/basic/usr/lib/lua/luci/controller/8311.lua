@@ -796,8 +796,8 @@ function action_gpon_status()
 	local pon_mode = uci:get("gpon", "ponip", "pon_mode") or "xgspon"
 	local module_type = util.exec(". /lib/8311.sh && get_8311_module_type"):trim() or "bfw"
 	local active_bank = util.exec(". /lib/8311.sh && active_fwbank"):trim() or "A"
-	local olt_vendor = util.exec(". /lib/8311-omci-lib.sh && mibattr 131 0 1 | awk 'NR==3 {sub(/^ +/, \"\"); print $1}'"):trim() or "Unknown"
-    local vlan_info = util.exec("/usr/sbin/8311-tc-filter-dump.sh | /usr/sbin/8311-tc-vlan-decode.sh") or "Unknown"
+	local olt_vendor = fs.readfile(". /lib/8311-omci-lib.sh && mibattr 131 0 1 | awk 'NR==3 {sub(/^ +/, \"\"); print $1}'"):trim() or "Unknown"
+    local vlan_info = util.exec("/usr/sbin/8311-tc-vlan-decode.sh") or "Unknown"
 	local rv = {
 		status = pon_state(tonumber(ploam_status) or 0),
 		power = string.format(translate("%s / %s / %.2f mA"), dBm(rx_mw), dBm(tx_mw), tx_bias),

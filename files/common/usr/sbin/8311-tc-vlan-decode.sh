@@ -1,60 +1,37 @@
 #!/bin/sh
+# 优化版：只处理eth0_0 ingress，直接输出VLAN ID，合并原有功能，极简高效
 
-awk '
-BEGIN {
-    in_eth0_block = 0
-    vlans = ""
-    sep = ""
-    current_vlan = ""
-    has_mirred = 0
-}
-/--------------- tc filter show dev eth0_0 ingress ---------------/ {
-    in_eth0_block = 1
-    next
-}
-in_eth0_block && /^---------------/ {
-    in_eth0_block = 0
-    # 处理最后一个规则块
-    if (has_mirred && current_vlan != "") {
-        vlans = vlans sep current_vlan
-        sep = ","
+# 只处理eth0_0 ingress，避免遍历所有接口和方向
+TC_OUTPUT=$(tc filter show dev eth0_0 ingress)
+
+# 只在有输出时处理
+if [ -n "$TC_OUTPUT" ]; then
+    echo "$TC_OUTPUT" | awk '
+    BEGIN {
+        vlans = ""; sep = ""; current_vlan = ""; has_mirred = 0;
     }
-    next
-}
-in_eth0_block {
     # 检测规则块开始（非缩进行）
-    if ($0 !~ /^[[:space:]]/) {
-        # 处理前一个规则块
+    /^[^[:space:]]/ {
         if (has_mirred && current_vlan != "") {
-            vlans = vlans sep current_vlan
-            sep = ","
+            vlans = vlans sep current_vlan; sep = ",";
         }
-        # 重置当前规则状态
-        current_vlan = ""
-        has_mirred = 0
+        current_vlan = ""; has_mirred = 0;
     }
-    
-    # 提取 VLAN ID
-    if (/vlan_id[[:space:]]+[0-9]+/) {
-        split($0, parts, " ")
-        for (i=1; i<=length(parts); i++) {
-            if (parts[i] == "vlan_id" && i < length(parts)) {
-                current_vlan = parts[i+1]
-                break
+    /vlan_id[[:space:]]+[0-9]+/ {
+        for (i=1; i<=NF; i++) {
+            if ($i == "vlan_id" && (i+1)<=NF) {
+                current_vlan = $(i+1);
+                break;
             }
         }
     }
-    
-    # 检测重定向动作
-    if (/mirred \(Egress Redirect/) {
-        has_mirred = 1
-    }
-}
-END {
-    # 处理最后一个规则块
-    if (has_mirred && current_vlan != "") {
-        vlans = vlans sep current_vlan
-    }
-    print vlans
-}
-' "$@"
+    /mirred \(Egress Redirect/ { has_mirred = 1; }
+    END {
+        if (has_mirred && current_vlan != "") {
+            vlans = vlans sep current_vlan;
+        }
+        print vlans;
+    }'
+else
+    echo ""
+fi
