@@ -14,6 +14,8 @@ return baseclass.extend({
 		var fields = [
 			_('PON Mode'), data.pon_mode || '?',
 			_('PON PLOAM Status'), data.status || '?',
+			_('PON VLAN Info'), data.vlan_info || '?',
+			_('PON OLT Vendor'), data.olt_vendor || '?',
 			_('RX Power / TX Power / TX Bias'), data.power || '?',
 			_('CPU0 / CPU1 / Optic Temperature'), data.temperature || '?',
 			_('Module Voltage'), data.voltage || '?',

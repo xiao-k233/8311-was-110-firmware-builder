@@ -405,10 +405,6 @@ function fwenvs_8311()
 						{
 							name=translate("Enabled"),
 							value="1"
-						},
-						{
-							name=translate("Hook script only"),
-							value="2"
 						}
 					}
 				},{
@@ -471,13 +467,15 @@ function fwenvs_8311()
 					options={
 						"2",
 						"3"
-					}
+					},
+					depends="iopmask"
 				},{
 					id="force_me309",
 					name=translate("强制创建ME309规则"),
 					description=translate("基于IPoE的IPTV组播异常，可尝试勾选"),
 					type="checkbox",
-					default=false
+					default=false,
+					depends="iopmask"
 				}
 			}
 		},{
@@ -798,16 +796,19 @@ function action_gpon_status()
 	local pon_mode = uci:get("gpon", "ponip", "pon_mode") or "xgspon"
 	local module_type = util.exec(". /lib/8311.sh && get_8311_module_type"):trim() or "bfw"
 	local active_bank = util.exec(". /lib/8311.sh && active_fwbank"):trim() or "A"
-
+	local olt_vendor = util.exec(". /lib/8311-omci-lib.sh && mibattr 131 0 1 | awk 'NR==3 {sub(/^ +/, \"\"); print $1}'"):trim() or "Unknown"
+    local vlan_info = util.exec("/usr/sbin/8311-tc-filter-dump.sh | /usr/sbin/8311-tc-vlan-decode.sh") or "Unknown"
 	local rv = {
 		status = pon_state(tonumber(ploam_status) or 0),
 		power = string.format(translate("%s / %s / %.2f mA"), dBm(rx_mw), dBm(tx_mw), tx_bias),
 		temperature = string.format("%s / %s / %s", temperature(cpu0_temp), temperature(cpu1_temp), temperature(optic_temp)),
 		voltage = string.format(translate("%.2f V"), voltage),
 		pon_mode = pon_mode:upper():gsub("PON$", "-PON"),
-		module_info = string.format("%s %s %s (%s)", vendor_name, vendor_pn, vendor_rev, module_type),
-		eth_speed = (eth_speed and string.format(translate("%s Mbps"), eth_speed) or translate("N/A")),
+		module_info = {vendor_name, vendor_pn, vendor_rev, module_type},
+		eth_speed = eth_speed,
 		active_bank = active_bank,
+		olt_vendor = olt_vendor,
+		vlan_info = vlan_info
 	}
 	luci.http.prepare_content("application/json")
 	luci.http.write_json(rv)
