@@ -2,7 +2,6 @@
 local tools = require "8311.tools"
 local esc = tools.html_escape
 local nl2br = tools.nl2br
-local hook_script_placeholder = "#!/bin/sh\n# /ptconf/8311/vlan_fixes_hook.sh\n\n在此处粘贴你的钩子脚本.."
 -%>
 
 <%+header%>
@@ -20,10 +19,7 @@ local hook_script_placeholder = "#!/bin/sh\n# /ptconf/8311/vlan_fixes_hook.sh\n\
 </ul>
 
 <script type="text/javascript">
-	var translations = {
-		hookScriptSaved: '<%=translate("Hook script saved.")%>',
-		hookScriptSaveFailed: '<%=translate("Failed to save hook script.")%>'
-	};
+	var translations = {};
 </script>
 
 <form id="8311-config" action="save" onsubmit="return saveConfig(this);"  method="post" novalidate="novalidate">
@@ -111,13 +107,6 @@ for _, option in pairs(item.options) do
 			</div>
 		</div>
 <% if item.id == 'fix_vlans' then %>
-		<div class="cbi-value">
-			<label class="cbi-value-title"></label>
-			<div class="cbi-value-field">
-				<button id="edit-hook-script-btn" type="button" class="cbi-button cbi-button-edit"><%:Edit hook script%></button>
-				<span class="hook-script-info"><%:Note: The hook script works unless Fix VLANs is set to Disabled.%></span>
-			</div>
-		</div>
 <% end %>
 <% end %>
 	</div>
@@ -125,17 +114,5 @@ for _, option in pairs(item.options) do
 </div>
 <button id="save-btn" type="submit" class="cbi-button cbi-button-save"><%:Save%></button>
 </form>
-
-<div id="hook-script-modal" style="display:none;">
-	<div id="hook-script-overlay"></div>
-	<div id="hook-script-box">
-		<div id="hook-script-message" class="cbi-value-description" style="display:none;"></div>
-		<textarea id="hook-script-textarea" style="resize: none;" placeholder="<%= esc(hook_script_placeholder) %>"></textarea>
-		<div id="hook-script-buttons">
-			<button id="hook-script-save-btn" class="cbi-button cbi-button-save"><%:Save%></button>
-			<button id="hook-script-cancel-btn" class="cbi-button cbi-button-reset"><%:Cancel%></button>
-		</div>
-	</div>
-</div>
 
 <%+footer%>
