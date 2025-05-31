@@ -1,9 +1,7 @@
 # 8311 WAS-110 Firmware Builder
 ## 国内优化版，目前没做太多更改
 ### 主要特性如下：
-- 修改bypass脚本，适配国内运营商，不会瞎把internet绑定到默认GEM1的tr096上（这个因地区而异，在我的印象里大部分运营商GEM1一般是tr096，GEM2一般是internet，GEM3一般是iptv，如果你们地区有很逆天的配置，比如一个GEM走N个VLAN，请告诉我）
-- 初步SNMP支持
-
+见恩山论坛 https://www.right.com.cn/forum/forum.php?mod=viewthread&tid=8423574&page=1&extra=#pid21495681
 ## Custom fwenvs
 
 
