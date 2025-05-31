@@ -266,8 +266,8 @@ vlan_parse() {
 
 ext_vlan_tables=$(mibs 171)
 me84_tables=$(mibs 84)
-if [ -z "$ext_vlan_tables" ]; then
-	echo "未检测到ME84 VLAN tagging filter data"
+if [ -z "$me84_tables" ]; then
+    echo "未检测到ME84 VLAN tagging filter data"
 fi
 if [ -z "$ext_vlan_tables" ]; then
 	echo "未检测到EXTVLAN表" >&2
