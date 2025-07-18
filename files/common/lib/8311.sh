@@ -474,6 +474,16 @@ get_8311_module_type() {
 	cat "/tmp/8311-module-type"
 }
 
+get_8311_tx_en_mode() {
+	fwenv_get_8311 "tx_en_mode" | grep -E '^[0-9]+$'
+}
+
+set_8311_tx_en_mode() {
+	echo "Setting optic.common.tx_en_mode to: $1"
+	uci set "optic.common.tx_en_mode"="$1"
+    uci commit "optic"
+}
+
 get_8311_base_mac() {
 	if [ ! -f "/tmp/8311-base-mac" ]; then
 		local type=$(get_8311_module_type)
