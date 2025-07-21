@@ -3,12 +3,14 @@
 # OMCI抓包脚本
 # 适用于MIPS架构的OpenWrt系统
 
-OMCI_LOG="/tmp/omcimsg.txt"
-HEX_FILE="/tmp/omci.hex"
-
+OMCI_LOG="/tmp/8311-omcimsg"
+HEX_FILE="/tmp/8311-omcimsghex"
+ipaddr=$(cat /tmp/8311-ipaddr)
 # 清理函数
 cleanup() {
-    echo "\n正在停止抓包..."
+        # 恢复原始屏幕缓冲区
+printf "\033[?1049l"
+    printf "\n正在停止抓包...\n"
     /usr/bin/omci_pipe.sh mdd
     echo "抓包已停止"
     
@@ -22,12 +24,11 @@ cleanup() {
         echo "  Hex文件: $HEX_FILE"
         echo ""
         echo "请使用scp命令回传文件到本地:"
-        echo "  scp root@<设备IP>:$OMCI_LOG ."
-        echo "  scp root@<设备IP>:$HEX_FILE ."
+        echo "  scp root@$ipaddr:$OMCI_LOG ."
+        echo "  scp root@$ipaddr:$HEX_FILE ."
     else
         echo "错误: 未找到日志文件 $OMCI_LOG"
     fi
-    
     exit 0
 }
 
@@ -36,15 +37,17 @@ cleanup() {
 # 设置信号处理
 trap cleanup INT TERM
 
+
+
 # 清理旧文件
 rm -f "$OMCI_LOG" "$HEX_FILE"
 
-# 获取PON状态的函数 - 请根据需要实现
+
 
 
 # 开始抓包
 echo "开始OMCI抓包..."
-result=$(/usr/bin/omci_pipe.sh mdfe "$OMCI_LOG")
+result=$(/usr/bin/omci_pipe.sh mdfe "$OMCI_LOG" 2>&1)
 
 # 检查命令输出是否包含errorcode=0
 if echo "$result" | grep -q "errorcode=0"; then
@@ -56,7 +59,8 @@ fi
 
 echo "抓包已启动，日志保存到: $OMCI_LOG"
 echo ""
-
+# 进入备用缓冲区
+printf "\033[?1049h"
 # 主循环 - 显示状态信息
 start_time=$(date +%s)
 while true; do
@@ -80,8 +84,8 @@ while true; do
     # 获取PON状态
     pon_status=$(pon psg | cut -b21)
     
-    # 清屏并显示状态
-    printf "\033[2J\033[H"
+    # 清屏刷新
+    clear
     echo "================= OMCI抓包状态 ================="
     printf "抓包时长: %02d:%02d:%02d\n" $hours $minutes $seconds
     echo "PON状态: O$pon_status"
