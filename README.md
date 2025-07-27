@@ -246,7 +246,7 @@ Options:
 
 3. 使用build.sh脚本构建自定义固件：
    ```bash
-   sudo ./build.sh -i <原始固件镜像> -I <基础固件目录> --basic --release -V "<版本号>"
+   ./build.sh -i <原始固件镜像> -I <基础固件目录> --basic --release -V "<版本号>"
    ```
 
 4. 构建完成的固件将位于`out/`目录中
