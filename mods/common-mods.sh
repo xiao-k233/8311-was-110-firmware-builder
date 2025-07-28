@@ -24,9 +24,9 @@ cat >> "$UBIMGVARS" <<'UBIMGVARS_MOD'
 	printf "}\n"
 UBIMGVARS_MOD
 echo "$UBIMGVARS_FOOT" >> "$UBIMGVARS"
-
-
 VEIP_MIB="$ROOT_DIR/etc/mibs/prx300_1V.ini"
+if check_file "$VEIP_MIB" "6e9ff241d51c37de31d6c521973dee7036e633e6df63285bbc405754fe697e34"; then
+
 echo "Patching '$VEIP_MIB'..."
 
 VEIP_HEAD=$(grep -P -B99999999 '^# Virtual Ethernet Interface Point$' "$VEIP_MIB" | head -n -1)
@@ -41,7 +41,7 @@ cat >> "$VEIP_MIB" <<'VEIP_LCT'
 
 VEIP_LCT
 echo "$VEIP_FOOT" >> "$VEIP_MIB"
-
+fi
 
 # Copy custom files
 cp -va "files/common/." "$ROOT_DIR/"
