@@ -136,7 +136,7 @@ set_8311_mib_file() {
 }
 
 get_8311_pon_mode() {
-	fwenv_get_8311 "pon_mode" "xgspon" | strtolower | sed 's/-//g' | grep -E '^xgs?pon$' || echo 'xgspon'
+	fwenv_get_8311 "pon_mode" "xgspon" | strtolower | sed 's/-//g' | grep -E '^x?gs?pon$' || echo 'xgspon'
 }
 
 set_8311_pon_mode() {
