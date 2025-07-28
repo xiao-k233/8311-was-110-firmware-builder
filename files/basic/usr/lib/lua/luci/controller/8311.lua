@@ -364,6 +364,10 @@ function fwenvs_8311()
 							name = "XG-PON",
 							value = "xgpon",
 						},
+						{
+							name = "G-PON",
+							value = "gpon",
+						},
 					},
 				},
 				{
