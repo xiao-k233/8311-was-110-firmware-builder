@@ -23,7 +23,7 @@ if [ "$LCT_VLAN" -gt 0 ] && [ "$LCT_VLAN" -le 4095 ]; then
 	uci set "network.mgmt.proto"="static"
 	uci set "network.mgmt.ipaddr"="$(get_8311_ipaddr)"
     uci set "network.mgmt.netmask"="$(get_8311_netmask)"
-    uci set "network.mgmt.gateway"="$(get_8311_gateway)"
+    [ -n "$(get_8311_gateway)" ] && uci set "network.mgmt.gateway"="$(get_8311_gateway)"
 
 	[ -n "$LCT_DNS" ] && uci set "network.mgmt.dns"="$LCT_DNS"
 
@@ -35,7 +35,7 @@ if [ "$LCT_VLAN" -gt 0 ] && [ "$LCT_VLAN" -le 4095 ]; then
 else
 	uci set "network.lct.ipaddr"="$(get_8311_ipaddr)"
 	uci set "network.lct.netmask"="$(get_8311_netmask)"
-	uci set "network.lct.gateway"="$(get_8311_gateway)"
+	[ -n "$(get_8311_gateway)" ] && uci set "network.lct.gateway"="$(get_8311_gateway)"
 	[ -n "$LCT_DNS" ] && uci set "network.lct.dns"="$LCT_DNS"
 fi
 

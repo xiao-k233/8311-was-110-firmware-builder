@@ -516,7 +516,7 @@ function fwenvs_8311()
 					),
 					type = "text",
 					maxlength = 4,
-					depends = "iopmask",
+					depends = "iopmask=1",
 				},
 				{
 					id = "forceuvlan",
@@ -524,7 +524,7 @@ function fwenvs_8311()
 					description = translate("pvid设置后不生效，可尝试勾选"),
 					type = "checkbox",
 					default = false,
-					depends = "iopmask",
+					depends = "iopmask=1",
 				},
 				{
 					id = "forcemerule",
@@ -532,7 +532,7 @@ function fwenvs_8311()
 					description = translate("o5状态无法拨号，可尝试勾选"),
 					type = "checkbox",
 					default = false,
-					depends = "iopmask",
+					depends = "iopmask=1",
 				},
 				{
 					id = "mvlansource",
@@ -543,7 +543,7 @@ function fwenvs_8311()
 					type = "number",
 					min = 1,
 					max = 4094,
-					depends = "iopmask",
+					depends = "iopmask=1",
 				},
 				{
 					id = "multicast_vlan",
@@ -554,7 +554,7 @@ function fwenvs_8311()
 					type = "number",
 					min = 1,
 					max = 4094,
-					depends = "iopmask",
+					depends = "iopmask=1",
 				},
 				{
 					id = "vlan_trans_rules",
@@ -564,7 +564,7 @@ function fwenvs_8311()
 					),
 					type = "text",
 					maxlength = 15,
-					depends = "iopmask",
+					depends = "iopmask=1",
 				},
 				{
 					id = "vlandebug",
@@ -572,7 +572,7 @@ function fwenvs_8311()
 					description = translate("启用vlan脚本调试日志"),
 					type = "checkbox",
 					default = true,
-					depends = "iopmask",
+					depends = "iopmask=1",
 				},
 				{
 					id = "igmp_version",
@@ -586,7 +586,7 @@ function fwenvs_8311()
 						"2",
 						"3",
 					},
-					depends = "iopmask",
+					depends = "iopmask=1",
 				},
 				{
 					id = "force_me309",
@@ -594,7 +594,7 @@ function fwenvs_8311()
 					description = translate("基于IPoE的IPTV组播异常，可尝试勾选"),
 					type = "checkbox",
 					default = false,
-					depends = "iopmask",
+					depends = "iopmask=1",
 				},
 			},
 		},
@@ -659,15 +659,6 @@ function fwenvs_8311()
 					default = true,
 				},
 				{
-					id = "dying_gasp_en",
-					name = translate("Dying Gasp"),
-					description = translate(
-						"Enable dying gasp. This will cause the serial console input to break as it shares the same SFP pin."
-					),
-					type = "checkbox",
-					default = false,
-				},
-				{
 					id = "rx_los",
 					name = translate("RX Loss of Signal"),
 					description = translate(
@@ -726,6 +717,7 @@ function fwenvs_8311()
 					description = translate("NTP server(s) to sync time from (space separated)."),
 					maxlength = 255,
 					type = "text",
+					default = "cn.pool.ntp.org",
 				},
 				{
 					id = "persist_root",
@@ -845,7 +837,6 @@ function fwenvs_8311()
 					maxlength = 15,
 					pattern = ipv4_regex,
 					type = "text",
-					default = util.trim(util.exec(". /lib/8311.sh && get_8311_ipaddr")),
 				},
 				{
 					id = "dns_server",
