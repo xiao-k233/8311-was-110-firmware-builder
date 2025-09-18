@@ -15,6 +15,7 @@ local fs = require "nixio.fs"
 local bit = require "nixio.bit"
 local uci = require "luci.model.uci"
 local support_file = "/tmp/support.tar.gz"
+local json = require "luci.jsonc"
 
 local firmwareOutput = ''
 local supportOutput = ''
@@ -724,20 +725,28 @@ end
 function action_metrics()
 	local metrics = tools.metrics()
 	luci.http.prepare_content("application/json")
---	luci.http.write_json(metrics)
 	luci.http.write("{\n")
 
 	for i, metric in pairs(tools.sorted_keys(metrics)) do
 		if i > 1 then
 			luci.http.write(",\n")
 		end
+
 		local value = metrics[metric]
-		local dec = 2
-		if metric == "ploam_state" then
-			dec = 0
+		if type(value) == "number" then
+			local dec = 2
+			if metric == "ploam_state" then
+				dec = 0
+			end
+
+			value = string.format("%." .. dec .. "f", value)
+			if not value:match("%d") then
+				value = json.stringify(value)
+			end
+		else
+			value = json.stringify(value)
 		end
 
-		value = string.format("%." .. dec .. "f", value)
 		luci.http.write('  "' .. metric .. '": ' .. value)
 	end
 	luci.http.write("\n}\n")
