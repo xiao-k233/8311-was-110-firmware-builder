@@ -143,3 +143,11 @@ function sorted_keys(t)
 
 	return tkeys
 end
+
+function iterator2array(...)
+	local arr = {}
+	for v in ... do
+		table.insert(arr, v)
+	end
+	return arr
+end

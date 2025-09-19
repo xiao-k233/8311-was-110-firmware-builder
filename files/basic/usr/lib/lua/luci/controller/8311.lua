@@ -357,147 +357,102 @@ function fwenvs_8311()
 					default = "xgspon",
 					options = {
 						{
-							name = "XGS-PON",
-							value = "xgspon",
-						},
-						{
-							name = "XG-PON",
-							value = "xgpon",
-						},
-					},
-				},
-				{
-					id = "omcc_version",
-					name = translate("OMCC Version"),
-					description = translate(
-						"The OMCC version to use in hexadecimal format between 0x80 and 0xBF. Default is 0xA3"
-					),
-					type = "text",
-					default = "0xA3",
-					maxlength = 4,
-					pattern = "^0x[89AB][0-9A-F]$",
-				},
-				{
-					id = "iop_mask",
-					name = translate("OMCI Interoperability Mask"),
-					description = translate(
-							"The OMCI Interoperability Mask is a bitmask of compatibility options for working with various OLTs. The options are:"
-						)
-						.. "\n"
-						.. translate("1 - Force Unauthorized IGMP/MLD behavior")
-						.. "\n"
-						.. translate("2 - Skip Alloc-IDs termination upon T-CONT deactivation")
-						.. "\n"
-						.. translate("4 - Drop all packets on default Downstream Extended VLAN rules")
-						.. "\n"
-						.. translate("8 - Ignore Downstream Extended VLAN rules priority matching")
-						.. "\n"
-						.. translate("16 - Convert Traffic Descriptor PIR/CIR values from kbyte/s to kbit/s")
-						.. "\n"
-						.. translate(
-							"32 - Force common IP handling - apply the IPv4 Ethertype 0x0800 to the Extended VLAN rule matching for IPv6 packets"
-						)
-						.. "\n"
-						.. translate(
-							"64 - It is unknown what this option does but it appears to affect the message length in omci_msg_send."
-						),
-					type = "number",
-					default = "18",
-					min = 0,
-					max = 127,
-				},
-				{
-					id = "reg_id_hex",
-					name = translate("Registration ID (HEX)"),
-					description = translate(
-						"Registration ID (up to 36 bytes) sent to the OLT, in hex format. This is where you would set a ploam password (which is contained in the last 12 bytes)."
-					),
-					maxlength = 72,
-					pattern = "^([A-Fa-f0-9]{2})*$",
-					type = "text",
-				},
-				{
-					id = "loid",
-					name = translate("Logical ONU ID"),
-					description = translate("Logical ONU ID presented in the ONU-G ME [256] (up to 24 characters)."),
-					maxlength = 24,
-					type = "text",
-				},
-				{
-					id = "lpwd",
-					name = translate("Logical Password"),
-					description = translate("Logical Password presented in the ONU-G ME [256] (up to 12 characters)."),
-					maxlength = 12,
-					type = "text",
-				},
-				{
-					id = "mib_file",
-					name = translate("MIB File"),
-					description = translate(
-						"MIB file used by omcid. Defaults to /etc/mibs/prx300_1U.ini (U:SFU, V:HGU)"
-					),
-					type = "select",
-					default = "/etc/mibs/prx300_1U.ini",
-					options = {
-						"/etc/mibs/prx300_1U.ini",
-						"/etc/mibs/prx300_1V.ini",
-						"/etc/mibs/prx300_1V_bell.ini",
-						"/etc/mibs/prx300_2U.ini",
-						"/etc/mibs/prx300_2U_voip.ini",
-						"/etc/mibs/urx800_1U.ini",
-						"/etc/mibs/urx800_1V.ini",
-					},
-				},
-				{
-					id = "pon_slot",
-					name = translate("PON Slot"),
-					description = translate(
-						"Change the slot number that the UNI port is presented on, needed on some ISPs."
-					),
-					type = "number",
-					min = 1,
-					max = 255,
-				},
-				{
-					id = "iphost_mac",
-					name = translate("IP Host MAC Address"),
-					description = translate(
-						"MAC address sent in the IP host config data ME [134] (XX:XX:XX:XX:XX:XX format)."
-					),
-					maxlength = 17,
-					pattern = "^[A-Fa-f0-9]{2}(:[A-Fa-f0-9]{2}){5}$",
-					type = "text",
-					default = util.trim(util.exec(". /lib/pon.sh && pon_mac_get host")):upper(),
-				},
-				{
-					id = "iphost_hostname",
-					name = translate("IP Host Hostname"),
-					description = translate("Hostname sent in the IP host config data ME [134] (up to 25 characters)."),
-					maxlength = 25,
-					type = "text",
-				},
-				{
-					id = "iphost_domain",
-					name = translate("IP Host Domain Name"),
-					description = translate(
-						"Domain name sent in the IP host config data ME [134] (up to 25 characters)."
-					),
-					maxlength = 25,
-					type = "text",
-				},
-			},
-		},
-		{
-			id = "isp",
-			category = translate("ISP Fixes"),
-			items = {
-				{
-					id = "iopmask",
-					name = translate("互操作兼容模式"),
-					description = translate("兼容适配模式，启用自动VLAN配置和组播规则修复"),
-					type = "select_named",
-					default = "1",
-					options = {
+							name="XGS-PON",
+							value="xgspon"
+						},{
+							name="XG-PON",
+							value="xgpon"
+						}
+					}
+				},{
+					id="omcc_version",
+					name=translate("OMCC Version"),
+					description=translate("The OMCC version to use in hexadecimal format between 0x80 and 0xBF. Default is 0xA3"),
+					type="text",
+					default="0xA3",
+					maxlength=4,
+					pattern='^0x[89AB][0-9A-F]$'
+				},{
+					id="iop_mask",
+					name=translate("OMCI Interoperability Mask"),
+					description =
+						translate("The OMCI Interoperability Mask is a bitmask of compatibility options for working with various OLTs. The options are:") .. "\n" ..
+						translate("1 - Force Unauthorized IGMP/MLD behavior") .. "\n" ..
+						translate("2 - Skip Alloc-IDs termination upon T-CONT deactivation") .. "\n" ..
+						translate("4 - Drop all packets on default Downstream Extended VLAN rules") .. "\n" ..
+						translate("8 - Ignore Downstream Extended VLAN rules priority matching") .. "\n" ..
+						translate("16 - Convert Traffic Descriptor PIR/CIR values from kbyte/s to kbit/s") .. "\n" ..
+						translate("32 - Force common IP handling - apply the IPv4 Ethertype 0x0800 to the Extended VLAN rule matching for IPv6 packets") .. "\n" ..
+						translate("64 - It is unknown what this option does but it appears to affect the message length in omci_msg_send."),
+					type="number",
+					default="18",
+					min=0,
+					max=127
+				},{
+					id="reg_id_hex",
+					name=translate("Registration ID (HEX)"),
+					description=translate("Registration ID (up to 36 bytes) sent to the OLT, in hex format. This is where you would set a ploam password (which is contained in the last 12 bytes)."),
+					maxlength=72,
+					pattern='^([A-Fa-f0-9]{2})*$',
+					type="text"
+				},{
+					id="loid",
+					name=translate("Logical ONU ID"),
+					description=translate("Logical ONU ID presented in the ONU-G ME [256] (up to 24 characters)."),
+					maxlength=24,
+					type="text"
+				},{
+					id="lpwd",
+					name=translate("Logical Password"),
+					description=translate("Logical Password presented in the ONU-G ME [256] (up to 12 characters)."),
+					maxlength=12,
+					type="text"
+				},{
+					id="mib_file",
+					name=translate("MIB File"),
+					description=translate("MIB file used by omcid. Defaults to /etc/mibs/prx300_1U.ini (U:SFU, V:HGU)"),
+					type="select",
+					default="/etc/mibs/prx300_1U.ini",
+					options=tools.iterator2array(fs.glob("/etc/mibs/*.ini"))
+				},{
+					id="pon_slot",
+					name=translate("PON Slot"),
+					description=translate("Change the slot number that the UNI port is presented on, needed on some ISPs."),
+					type="number",
+					min=1,
+					max=255
+				},{
+					id="iphost_mac",
+					name=translate("IP Host MAC Address"),
+					description=translate("MAC address sent in the IP host config data ME [134] (XX:XX:XX:XX:XX:XX format)."),
+					maxlength=17,
+					pattern='^[A-Fa-f0-9]{2}(:[A-Fa-f0-9]{2}){5}$',
+					type="text",
+					default=util.trim(util.exec(". /lib/pon.sh && pon_mac_get host")):upper()
+				},{
+					id="iphost_hostname",
+					name=translate("IP Host Hostname"),
+					description=translate("Hostname sent in the IP host config data ME [134] (up to 25 characters)."),
+					maxlength=25,
+					type="text"
+				},{
+					id="iphost_domain",
+					name=translate("IP Host Domain Name"),
+					description=translate("Domain name sent in the IP host config data ME [134] (up to 25 characters)."),
+					maxlength=25,
+					type="text"
+				}
+			}
+		},{
+			id="isp",
+			category=translate("ISP Fixes"),
+			items={	{
+					id="fix_vlans",
+					name=translate("Fix VLANs"),
+					description=translate("Apply automatic fixes to the VLAN configuration from the OLT."),
+					type="select_named",
+					default="1",
+					options={
 						{
 							name = translate("Disabled"),
 							value = "0",
@@ -1179,7 +1134,7 @@ function action_firmware()
 	end
 
 	local input_field = "firmware_file"
-	local location = "/tmp"
+local location = "/tmp"
 	local file_name = "8311-local-upgrade.tar"
 	local firmware_file = location .. "/" .. file_name
 	local values = luci.http.formvalue()

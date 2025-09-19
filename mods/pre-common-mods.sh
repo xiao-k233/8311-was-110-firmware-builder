@@ -1,5 +1,7 @@
 #!/bin/bash
 mv -fv "$ROOT_DIR/sbin/secure_upgrade.sh" "$ROOT_DIR/sbin/secure_upgrade-original.sh"
+# Remove urx800 mib files
+rm -fv "$ROOT_DIR/etc/mibs/urx800_"*".ini"
 
 if ls packages/remove/*.list &>/dev/null; then
 	for LIST in packages/remove/*.list; do
