@@ -352,16 +352,7 @@ function fwenvs_8311()
 					description=translate("MIB file used by omcid. Defaults to /etc/mibs/prx300_1U.ini (U:SFU, V:HGU)"),
 					type="select",
 					default="/etc/mibs/prx300_1U.ini",
-					options={
-						"/etc/mibs/prx300_1U.ini",
-						"/etc/mibs/prx300_1U_telus.ini",
-						"/etc/mibs/prx300_1V.ini",
-						"/etc/mibs/prx300_1V_bell.ini",
-						"/etc/mibs/prx300_2U.ini",
-						"/etc/mibs/prx300_2U_voip.ini",
-						"/etc/mibs/urx800_1U.ini",
-						"/etc/mibs/urx800_1V.ini"
-					}
+					options=tools.iterator2array(fs.glob("/etc/mibs/*.ini"))
 				},{
 					id="pon_slot",
 					name=translate("PON Slot"),
