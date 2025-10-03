@@ -506,6 +506,10 @@ function fwenvs_8311()
 							name = translate("Enabled"),
 							value = "1",
 						},
+						{
+							name = translate("备用模式"),
+							value = "2",
+						}
 					},
 				},
 				{
@@ -516,7 +520,7 @@ function fwenvs_8311()
 					),
 					type = "text",
 					maxlength = 4,
-					depends = "iopmask=1",
+					depends = { ["互操作兼容模式"] = "已启用" }
 				},
 				{
 					id = "forceuvlan",
@@ -524,7 +528,7 @@ function fwenvs_8311()
 					description = translate("pvid设置后不生效，可尝试勾选"),
 					type = "checkbox",
 					default = false,
-					depends = "iopmask=1",
+					depends = { ["互操作兼容模式"] = "1" }
 				},
 				{
 					id = "forcemerule",
@@ -532,7 +536,7 @@ function fwenvs_8311()
 					description = translate("o5状态无法拨号，可尝试勾选"),
 					type = "checkbox",
 					default = false,
-					depends = "iopmask=1",
+					depends = { ["互操作兼容模式"] = "1" }
 				},
 				{
 					id = "mvlansource",
@@ -543,7 +547,7 @@ function fwenvs_8311()
 					type = "number",
 					min = 1,
 					max = 4094,
-					depends = "iopmask=1",
+					depends = { ["互操作兼容模式"] = "1" }
 				},
 				{
 					id = "multicast_vlan",
@@ -554,7 +558,7 @@ function fwenvs_8311()
 					type = "number",
 					min = 1,
 					max = 4094,
-					depends = "iopmask=1",
+					depends = { ["互操作兼容模式"] = "1" }
 				},
 				{
 					id = "vlan_trans_rules",
@@ -564,7 +568,7 @@ function fwenvs_8311()
 					),
 					type = "text",
 					maxlength = 15,
-					depends = "iopmask=1",
+					depends = { ["互操作兼容模式"] = "1" }
 				},
 				{
 					id = "vlandebug",
@@ -572,7 +576,7 @@ function fwenvs_8311()
 					description = translate("启用vlan脚本调试日志"),
 					type = "checkbox",
 					default = true,
-					depends = "iopmask=1",
+					depends = { ["互操作兼容模式"] = "1" }
 				},
 				{
 					id = "igmp_version",
@@ -586,7 +590,7 @@ function fwenvs_8311()
 						"2",
 						"3",
 					},
-					depends = "iopmask=1",
+					depends = { ["互操作兼容模式"] = "1" }
 				},
 				{
 					id = "force_me309",
@@ -594,7 +598,7 @@ function fwenvs_8311()
 					description = translate("基于IPoE的IPTV组播异常，可尝试勾选"),
 					type = "checkbox",
 					default = false,
-					depends = "iopmask=1",
+					depends = { ["互操作兼容模式"] = "1" }
 				},
 			},
 		},
@@ -716,8 +720,7 @@ function fwenvs_8311()
 					name = translate("NTP Servers"),
 					description = translate("NTP server(s) to sync time from (space separated)."),
 					maxlength = 255,
-					type = "text",
-					default = "cn.pool.ntp.org",
+					type = "text"
 				},
 				{
 					id = "persist_root",

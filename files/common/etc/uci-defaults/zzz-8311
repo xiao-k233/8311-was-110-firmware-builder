@@ -98,8 +98,8 @@ fi
 uci set "sfp_eeprom.factory_bridge.enable"="0"
 uci commit "sfp_eeprom"
 
-# Configure Dying Gasp
-[ "$(get_8311_dying_gasp_en)" = "1" ] && DG_DIS="0" || DG_DIS="1"
+# Disable Dying Gasp because it not works due to HW design
+DG_DIS="1"
 uci set "optic.common.dg_dis"="$DG_DIS"
 uci commit "optic"
 
