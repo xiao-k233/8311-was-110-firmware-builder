@@ -461,11 +461,11 @@ function fwenvs_8311()
 						{
 							name = translate("Enabled"),
 							value = "1",
-						},
-						{
-							name = translate("备用模式"),
-							value = "2",
 						}
+--						{
+--							name = translate("备用模式"),
+--							value = "2",
+--						}
 					},
 				},
 				{
