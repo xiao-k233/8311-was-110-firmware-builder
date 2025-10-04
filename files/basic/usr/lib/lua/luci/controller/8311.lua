@@ -1060,7 +1060,7 @@ function action_save()
 	local value = nil
 	if http.getenv("REQUEST_METHOD") == "POST" then
 		local fwenvs = populate_8311_fwenvs()
-
+		local pon_config_changed = false
 		for catid, cat in pairs(fwenvs) do
 			for itemid, item in pairs(cat.items) do
 				value = formvalue(item.id) or ""
@@ -1099,10 +1099,18 @@ function action_save()
 					else
 						tools.fw_setenv_8311({ item.id, value })
 					end
+					if cat.id == "pon" then
+						pon_config_changed = true
+					end
+					end
 				end
 			end
 		end
-	end
+
+		-- Check if any category is "pon" and restart the service
+		if pon_config_changed == true then
+			os.execute("service _8311-poninit.sh restart")
+		end
 
 	http.redirect(dispatcher.build_url("admin/8311/config"))
 end
