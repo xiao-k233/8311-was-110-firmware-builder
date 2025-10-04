@@ -959,6 +959,7 @@ function action_gpon_status()
 		)
 		:trim() or "Unknown"
 	local vlan_info = util.exec("/usr/sbin/8311-tc-vlan-decode.sh"):trim() or "Unknown"
+	local reboot_cause = util.exec("awk '{for(i=1;i<=NF;i++) if($i~/^rst_cause=/) {sub(/^rst_cause=/,\"\",$i); print $i; exit}}' /proc/cmdline"):trim() or "Unknown"
 	local rv = {
 		status = pon_state(metrics.ploam_state),
 		power = string.format(
@@ -980,6 +981,7 @@ function action_gpon_status()
 		active_bank = active_bank,
 		olt_vendor = olt_vendor,
 		vlan_info = vlan_info,
+		reboot_cause = reboot_cause,
 	}
 	luci.http.prepare_content("application/json")
 	luci.http.write_json(rv)

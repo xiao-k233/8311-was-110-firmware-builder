@@ -21,7 +21,8 @@ return baseclass.extend({
 			_('Module Voltage'), data.voltage || '?',
 			_('Module Info'), data.module_info || '?',
 			_('ETH Speed'), data.eth_speed || '?',
-			_('Active Firmware'), data.active_bank || '?'
+			_('Active Firmware'), data.active_bank || '?',
+			_('Stick Reboot reason'), data.reboot_cause || '?'
 		];
 
 		var table = E('div', { 'class': 'table' });
