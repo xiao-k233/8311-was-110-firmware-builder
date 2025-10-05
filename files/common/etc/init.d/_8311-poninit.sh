@@ -105,6 +105,11 @@ boot() {
 		fwenv_set "$VALID" "false"
 	}
 
+	# Set OMCID print into syslog
+	uci set omci.default.stderr="1"
+	uci set omci.default.stdout="1"
+	uci commit omci
+	
 	start "$@"
 
 	# 8311 MOD: start vlansd script
