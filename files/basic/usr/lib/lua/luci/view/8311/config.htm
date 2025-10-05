@@ -20,6 +20,42 @@ local nl2br = tools.nl2br
 
 <script type="text/javascript">
 	var translations = {};
+	
+	// 处理依赖项显示/隐藏的函数
+	function handleDependencies() {
+		// 获取fix_vlans的值
+		var fixVlansValue = $('input[name="fix_vlans"]').val();
+		if ($('input[name="fix_vlans"]').attr('type') === 'checkbox') {
+			fixVlansValue = $('input[name="fix_vlans"]').prop('checked') ? '1' : '0';
+		} else if ($('select[name="fix_vlans"]').length) {
+			fixVlansValue = $('select[name="fix_vlans"]').val();
+		}
+		
+		// 根据fix_vlans值控制显示逻辑
+		if (fixVlansValue === '0') {
+			// 当fix_vlan=0时，隐藏所有带有depends属性的item
+			$('.depends-item').hide();
+		} else if (fixVlansValue === '1') {
+			// 当fix_vlan=1时，显示depends=1的item，隐藏depends=2的item
+			$('[data-depends-value="1"]').show();
+			$('[data-depends-value="2"]').hide();
+		} else if (fixVlansValue === '2') {
+			// 当fix_vlan=2时，显示depends=2的item，隐藏depends=1的item
+			$('[data-depends-value="1"]').hide();
+			$('[data-depends-value="2"]').show();
+		}
+	}
+	
+	// 页面加载完成后执行
+	$(document).ready(function() {
+		// 初始执行一次
+		handleDependencies();
+		
+		// 监听fix_vlans值的变化
+		$('input[name="fix_vlans"], select[name="fix_vlans"]').on('change', function() {
+			handleDependencies();
+		});
+	});
 </script>
 
 <form id="8311-config" action="save" onsubmit="return saveConfig(this);"  method="post" novalidate="novalidate">
@@ -32,8 +68,17 @@ local nl2br = tools.nl2br
 		if item.id == 'internet_vlan' or item.id == 'services_vlan' then
 			show_item = false
 		end
+		
+		-- 检查是否有depends属性，如果有则添加data-depends属性
+		local depends_attr = ""
+		if item.depends then
+			for dep_id, dep_value in pairs(item.depends) do
+				depends_attr = ' data-depends-id="' .. esc(dep_id) .. '" data-depends-value="' .. esc(dep_value) .. '"'
+			end
+		end
+		
 		%>
-		<div class="cbi-value<% if not show_item then %> vlan-field<% end %>" id="cbi-system-poncfg-<%= item.id %>" data-index="<%= (itemid - 1) %>" data-field="cbid.system.poncfg.<%= item.id %>" data-name="<%= item.id %>" data-widget="CBI.Value">
+		<div class="cbi-value<% if not show_item then %> vlan-field<% end %><% if item.depends then %> depends-item<% end %>" id="cbi-system-poncfg-<%= item.id %>" data-index="<%= (itemid - 1) %>" data-field="cbid.system.poncfg.<%= item.id %>" data-name="<%= item.id %>" data-widget="CBI.Value"<%= depends_attr %>>
 			<label class="cbi-value-title" for="widget.cbid.system.poncfg.<%= item.id %>"><%= esc(item.name) %></label>
 			<div class="cbi-value-field">
 				<div id="cbid.system.poncfg.<%= item.id %>">
