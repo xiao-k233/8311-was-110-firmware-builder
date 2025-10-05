@@ -38,11 +38,11 @@ local nl2br = tools.nl2br
 		} else if (fixVlansValue === '1') {
 			// 当fix_vlan=1时，显示depends=1的item，隐藏depends=2的item
 			$('[data-depends-value="1"]').show();
-			$('[data-depends-value="2"]').hide();
+			$('[data-depends-value="3"]').show();
 		} else if (fixVlansValue === '2') {
 			// 当fix_vlan=2时，显示depends=2的item，隐藏depends=1的item
 			$('[data-depends-value="1"]').hide();
-			$('[data-depends-value="2"]').show();
+			$('[data-depends-value="3"]').show();
 		}
 	}
 	

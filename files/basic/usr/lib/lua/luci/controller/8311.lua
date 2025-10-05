@@ -459,13 +459,13 @@ function fwenvs_8311()
 							value = "0",
 						},
 						{
-							name = translate("Enabled"),
+							name = translate("OMCI MIB模式"),
 							value = "1",
+						},
+						{
+							name = translate("TC模式"),
+							value = "2",
 						}
---						{
---							name = translate("备用模式"),
---							value = "2",
---						}
 					},
 				},
 				{
@@ -476,7 +476,7 @@ function fwenvs_8311()
 					),
 					type = "text",
 					maxlength = 4,
-					depends = { ["互操作兼容模式"] = "1" }
+					depends = { ["互操作兼容模式"] = "3" }
 				},
 				{
 					id = "forceuvlan",
