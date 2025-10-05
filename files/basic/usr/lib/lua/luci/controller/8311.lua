@@ -1099,7 +1099,7 @@ function action_save()
 					else
 						tools.fw_setenv_8311({ item.id, value })
 					end
-					if catid == "pon" then
+					if cat.id == "pon" then
 						pon_config_changed = true
 					end
 					end
@@ -1109,7 +1109,8 @@ function action_save()
 
 		-- Check if any category is "pon" and restart the service
 		if pon_config_changed == true then
-			util.exec("service _8311-poninit.sh restart")
+			util.exec("/etc/init.d/_8311-poninit.sh restart")
+			util.exec("/etc/init.d/omcid.sh restart")
 		end
 
 	http.redirect(dispatcher.build_url("admin/8311/config"))
