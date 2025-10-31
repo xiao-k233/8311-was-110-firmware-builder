@@ -207,7 +207,9 @@ end
 function language_change(value)
 	util.exec("uci set luci.main.lang=" .. util.shellquote(value) .. " && uci commit luci")
 end
-
+function vlan_mode_change(value)
+	util.exec("/etc/init.d/omcid.sh restart")
+end
 function fwenvs_8311()
 	local zones =
 		util.trim(util.exec("grep -v '^#' /usr/share/zoneinfo/zone.tab  | awk '{print $3}' | sort -uV ; echo UTC"))
@@ -452,6 +454,7 @@ function fwenvs_8311()
 					description=translate("Apply automatic fixes to the VLAN configuration from the OLT."),
 					type="select_named",
 					default="1",
+					change = vlan_mode_change ,
 					options={
 						{
 							name = translate("Disabled"),
