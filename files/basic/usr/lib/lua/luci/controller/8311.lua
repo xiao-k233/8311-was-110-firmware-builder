@@ -513,7 +513,7 @@ function fwenvs_8311()
 					type = "number",
 					min = 1,
 					max = 4094,
-					depends = { ["互操作兼容模式"] = "1" }
+					depends = { ["互操作兼容模式"] = "3" }
 				},
 				{
 					id = "vlan_trans_rules",
@@ -544,7 +544,7 @@ function fwenvs_8311()
 						"2",
 						"3",
 					},
-					depends = { ["互操作兼容模式"] = "1" }
+					depends = { ["互操作兼容模式"] = "3" }
 				},
 				{
 					id = "force_me309",
@@ -552,7 +552,7 @@ function fwenvs_8311()
 					description = translate("基于IPoE的IPTV组播异常，可尝试勾选"),
 					type = "checkbox",
 					default = false,
-					depends = { ["互操作兼容模式"] = "1" }
+					depends = { ["互操作兼容模式"] = "3" }
 				},
 			},
 		},
