@@ -33,7 +33,7 @@ LAST_HASH=""
 LAST_CFG_HASH=""
 
 echo "8311 VLANs daemon: start monitoring" | to_console
-sleep 5
+sleep 10
 while true ; do
 	CMD="$FIXES"
 	/usr/sbin/8311-tc-vlan-decode.sh > /tmp/8311-vlans
