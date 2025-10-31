@@ -990,7 +990,7 @@ function action_vlans()
 end
 
 function action_vlan_extvlans()
-	local vlans_tables = util.exec("/usr/sbin/8311-extvlan-decode.sh")
+	--local vlans_tables = util.exec("/usr/sbin/8311-extvlan-decode.sh")
 	luci.http.prepare_content("text/plain; charset=utf-8")
 
 	if
@@ -999,26 +999,9 @@ function action_vlan_extvlans()
 		luci.http.write("\n\n")
 		luci.sys.process.exec({ "/usr/sbin/8311-extvlan-decode.sh" }, luci.http.write, luci.http.write)
 	end
+	luci.sys.process.exec({ "/usr/sbin/8311-tc-filter-dump.sh" }, luci.http.write, luci.http.write)
 end
 
-function action_get_hook_script()
-	local content = fs.readfile("/ptconf/8311/vlan_fixes_hook.sh") or ""
-	luci.http.prepare_content("text/plain; charset=utf-8")
-	luci.http.write(content)
-end
-
-function action_save_hook_script()
-	local content = luci.http.formvalue("content") or ""
-	if content == "" then
-		fs.remove("/ptconf/8311/vlan_fixes_hook.sh")
-	else
-		fs.writefile("/ptconf/8311/vlan_fixes_hook.sh", content)
-		fs.chmod("/ptconf/8311/vlan_fixes_hook.sh", 755)
-	end
-	luci.http.status(200, "OK")
-	luci.http.prepare_content("application/json")
-	luci.http.write_json({ success = true })
-end
 
 function action_support_download()
 	local archive = ltn12.source.file(io.open(support_file))
