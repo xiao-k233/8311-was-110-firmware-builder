@@ -11,6 +11,7 @@ pon_hash() {
 config_hash() {
 	{
 		fw_printenv -n 8311_uvlan 2>/dev/null
+		fw_printenv -n 8311_fix_vlans 2>/dev/null
 		fw_printenv -n 8311_mvlansource 2>/dev/null
 		fw_printenv -n 8311_multicast_vlan 2>/dev/null
 		fw_printenv -n 8311_vlan_trans_rules 2>/dev/null
@@ -22,7 +23,7 @@ config_hash() {
 	} | sha256sum | awk '{print $1}'
 }
 
-FIX_ENABLED=$(fwenv_get_8311 "iopmask" "1")
+FIX_ENABLED=$(fwenv_get_8311 "fix_vlans")
 [ "$FIX_ENABLED" -eq 0 ] 2>/dev/null && exit 0
 
 
