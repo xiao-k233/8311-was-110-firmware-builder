@@ -9,3 +9,4 @@ i18n/lmo/*.lmo
 *.patch
 ./*.img
 ./*.bin
+.qoder/
