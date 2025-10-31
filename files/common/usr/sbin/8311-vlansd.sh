@@ -27,7 +27,7 @@ FIX_ENABLED=$(fwenv_get_8311 "iopmask" "1")
 
 
 FIXES=""
-[ "$FIX_ENABLED" -eq 1 ] && FIXES="/usr/sbin/8311-fix-vlans.sh"
+[ "$FIX_ENABLED" -ne 0 ] && FIXES="/usr/sbin/8311-fix-vlans.sh"
 
 LAST_HASH=""
 LAST_CFG_HASH=""
