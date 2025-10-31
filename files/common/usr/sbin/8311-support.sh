@@ -37,6 +37,11 @@ echo -n "Dumping System Log ..."
 logread > "$OUTDIR/system_log.txt"
 echo " done"
 
+echo -n "Dumping System Version ..."
+cat /etc/8311_version > "$OUTDIR/version.txt"
+cat /etc/openwrt_release >> "$OUTDIR/version.txt"
+echo " done"
+
 echo
 echo -n "Writing support archive '$OUT' ..."
 rm -f "$OUT"
