@@ -36,7 +36,7 @@ echo "8311 VLANs daemon: start monitoring" | to_console
 sleep 5
 while true ; do
 	CMD="$FIXES"
-
+	/usr/sbin/8311-tc-vlan-decode.sh > /tmp/8311-vlans
 	if [ -n "$CMD" ] && [ -d "/sys/devices/virtual/net/gem-omci" ]; then
 		HASH=$(pon_hash)
 		CFG_HASH=$(config_hash)

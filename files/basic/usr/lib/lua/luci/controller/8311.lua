@@ -956,8 +956,8 @@ function action_gpon_status()
 			". /lib/8311-omci-lib.sh && mibattr 131 0 1 | awk 'NR==3 {sub(/^ +/, \"\"); print $1}'"
 		)
 		:trim() or "Unknown"
-	local vlan_info = util.exec("/usr/sbin/8311-tc-vlan-decode.sh"):trim() or "Unknown"
-	local reboot_cause = util.exec("awk '{for(i=1;i<=NF;i++) if($i~/^rst_cause=/) {sub(/^rst_cause=/,\"\",$i); print $i; exit}}' /proc/cmdline"):trim() or "Unknown"
+	local vlan_info = fs.readfile("/tmp/8311-vlans"):trim() or "Unknown"
+	local reboot_cause = fs.readfile("/tmp/8311-rstcause"):trim() or "Unknown"
 	local rv = {
 		status = pon_state(metrics.ploam_state),
 		power = string.format(

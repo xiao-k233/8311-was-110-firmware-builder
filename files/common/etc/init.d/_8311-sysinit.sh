@@ -83,7 +83,7 @@ boot() {
 
 		chmod 600 /ptconf/8311/.ssh/authorized_keys
 	fi
-
+	awk '{for(i=1;i<=NF;i++) if($i~/^rst_cause=/) {sub(/^rst_cause=/,\"\",$i); print $i; exit}}' /proc/cmdline > /tmp/8311-rstcause
 	start "$@"
 
 	# 8311 MOD: start rx_los script
