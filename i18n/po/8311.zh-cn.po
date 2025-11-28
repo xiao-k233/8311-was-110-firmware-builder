@@ -361,7 +361,7 @@ msgid "Fix VLANs"
 msgstr "修复VLAN"
 
 msgid "Apply automatic fixes to the VLAN configuration from the OLT."
-msgstr "启用从OLT自动修复VLAN配置"
+msgstr "切换VLAN修复模式。如果OMCI模式无法上网，可以尝试TC模式"
 
 msgid "Hook script only"
 msgstr "仅限钩子脚本"
