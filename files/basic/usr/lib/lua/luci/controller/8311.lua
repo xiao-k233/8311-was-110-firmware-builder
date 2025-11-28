@@ -959,7 +959,6 @@ function action_gpon_status()
 			". /lib/8311-omci-lib.sh && mibattr 131 0 1 | awk 'NR==3 {sub(/^ +/, \"\"); print $1}'"
 		)
 		:trim() or "Unknown"
-	local vlan_info = fs.readfile("/tmp/8311-vlans"):trim() or "Unknown"
 	local reboot_cause = fs.readfile("/tmp/8311-rstcause"):trim() or "Unknown"
 	local rv = {
 		status = pon_state(metrics.ploam_state),
@@ -981,7 +980,6 @@ function action_gpon_status()
 		eth_speed = eth_speed,
 		active_bank = active_bank,
 		olt_vendor = olt_vendor,
-		vlan_info = vlan_info,
 		reboot_cause = reboot_cause,
 	}
 	luci.http.prepare_content("application/json")
