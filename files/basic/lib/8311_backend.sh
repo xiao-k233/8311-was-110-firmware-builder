@@ -18,7 +18,7 @@ _set_8311_vendor_id() {
 	return 0
 }
 
-_set_8311_reg_id_hex() {
+_set_8311_reg_id_str() {
 	local hex=$( { echo "$1"; cat /dev/zero 2>/dev/null;} | head -c 36 | str2hex | sed -r 's#([0-9A-F]{2})# 0x\1#gI')
 	uci set gpon.ploam.regID="$hex"
 	uci commit gpon
