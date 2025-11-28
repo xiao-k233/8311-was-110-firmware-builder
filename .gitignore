@@ -10,3 +10,4 @@ i18n/lmo/*.lmo
 ./*.img
 ./*.bin
 .qoder/
+.vscode/
