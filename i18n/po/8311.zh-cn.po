@@ -309,11 +309,11 @@ msgstr "32 - 强制通用IP处理 - 将IPv4 Ethertype 0x0800应用于IPv6数据�
 msgid "64 - It is unknown what this option does but it appears to affect the message length in omci_msg_send."
 msgstr "64 - 此选项的具体作用不明，但似乎会影响omci_msg_send中的消息长度"
 
-msgid "Registration ID (String)"
-msgstr "Registration ID（字符串格式）"
+msgid "Registration ID (HEX)"
+msgstr "Registration ID（16进制）"
 
-msgid "Registration ID (up to 36 characters) sent to the OLT, in Text format. This is where you would set a ploam password (which is contained in the last 12 bytes)."
-msgstr "设置Registration ID（最多36位，字符串格式）"
+msgid "Registration ID (up to 36 bytes) sent to the OLT, in hex format. This is where you would set a ploam password (which is contained in the last 12 bytes)."
+msgstr "设置Registration ID（最多36字节，16进制格式）最后12字节为PLOAM密码"
 
 msgid "Logical ONU ID"
 msgstr "逻辑ID（LOID）"
