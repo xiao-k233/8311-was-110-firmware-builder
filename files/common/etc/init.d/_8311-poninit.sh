@@ -48,8 +48,8 @@ start() {
 	set_8311_iop_mask "$OMCI_IOP_MASK"
 
 	# 8311 MOD: Set Registration ID
-	REG_ID_STR=$(get_8311_reg_id_str)
-	set_8311_reg_id_str "$REG_ID_STR"
+	REG_ID_HEX=$(get_8311_reg_id_hex)
+	set_8311_reg_id_hex "$REG_ID_HEX"
 
 	# 8311 MOD: fwenvs to set IP Host Host Name and Domain Name
 	IPHOST_HOSTNAME=$(get_8311_iphost_hostname)

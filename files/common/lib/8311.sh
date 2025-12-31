@@ -168,14 +168,14 @@ set_8311_iop_mask() {
 }
 
 get_8311_reg_id_hex() {
-	fwenv_get_8311 "reg_id_str"
+	{ { fwenv_get_8311 "reg_id_hex" | hex2str; } || echo -n "$(fwenv_get_8311 "reg_id")"; cat /dev/zero; } 2>/dev/null | head -c 36 | str2hex | strtoupper
 }
 
 
-set_8311_reg_id_str() {
+set_8311_reg_id_hex() {
 	local printable=$(echo -n "$1" | hex2printable)
 	echo "Setting PON registration ID to: $(echo $(echo "$1" | awk '{gsub(/.{2}/,"0x& ")}1')) ($printable)" | to_console
-	_set_8311_reg_id_str "$1"
+	_set_8311_reg_id_hex "$1"
 }
 
 get_8311_sw_ver() {

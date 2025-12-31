@@ -392,7 +392,7 @@ function fwenvs_8311()
 					min=0,
 					max=127
 				},{
-					id="reg_id_str",
+					id="reg_id_hex",
 					name=translate("Registration ID (String)"),
 					description=translate("Registration ID (up to 36 characters) sent to the OLT, in Text format. This is where you would set a ploam password (which is contained in the last 12 bytes)."),
 					maxlength=36,
