@@ -395,7 +395,7 @@ function fwenvs_8311()
 					id="reg_id",
 					name=translate("Registration ID (Text)"),
 					description=translate("Registration ID (up to 36 characters) sent to the OLT, in hex format. This is where you would set a ploam password (which is contained in the last 12 bytes)."),
-					maxlength=72,
+					maxlength=36,
 					pattern='^([A-Fa-f0-9]{2})*$',
 					type="text"
 				},{
