@@ -168,7 +168,7 @@ set_8311_iop_mask() {
 }
 
 get_8311_reg_id_hex() {
-	{ { fwenv_get_8311 "reg_id_hex" | hex2str; } || echo -n "$(fwenv_get_8311 "reg_id")"; cat /dev/zero; } 2>/dev/null | head -c 36 | str2hex | strtoupper
+	echo -n "$(fwenv_get_8311 "reg_id")" 2>/dev/null | head -c 36 | str2hex | strtoupper
 }
 
 
