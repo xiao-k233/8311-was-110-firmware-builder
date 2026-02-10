@@ -6,7 +6,7 @@ pon_hash() {
     {
         ip li                  # 列出所有网络接口
         brctl show            # 显示网桥配置
-    } | sha256sum | awk '{print $1}'
+    } | sha1sum | awk '{print $1}'
 }
 config_hash() {
 	{
@@ -20,7 +20,7 @@ config_hash() {
 		fw_printenv -n 8311_forceuvlan 2>/dev/null
 		fw_printenv -n 8311_forcemerule 2>/dev/null
 		fw_printenv -n 8311_force_me309 2>/dev/null
-	} | sha256sum | awk '{print $1}'
+	} | sha1sum | awk '{print $1}'
 }
 
 FIX_ENABLED=$(fwenv_get_8311 "fix_vlans")
