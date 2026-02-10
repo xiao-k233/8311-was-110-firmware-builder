@@ -24,7 +24,7 @@ IPADDR
 	}
 }' |
 		sh
-		sleep 1
+		sleep 5
 	else
 		sleep 30
 	fi
